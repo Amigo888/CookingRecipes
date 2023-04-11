@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5FBF4F1029E5918A00B9532A /* Receipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBF4F0F29E5918A00B9532A /* Receipt.swift */; };
+		5FBF4F1329E5AF6000B9532A /* ReciepesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBF4F1229E5AF6000B9532A /* ReciepesTableViewCell.swift */; };
+		5FBF4F1829E5FFDD00B9532A /* UIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBF4F1729E5FFDD00B9532A /* UIStackView.swift */; };
 		5FD2632229E5602100C18E90 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD2632129E5602100C18E90 /* AppDelegate.swift */; };
 		5FD2632429E5602100C18E90 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD2632329E5602100C18E90 /* SceneDelegate.swift */; };
 		5FD2632629E5602100C18E90 /* RecipesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD2632529E5602100C18E90 /* RecipesListViewController.swift */; };
@@ -20,6 +23,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5FBF4F0F29E5918A00B9532A /* Receipt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Receipt.swift; sourceTree = "<group>"; };
+		5FBF4F1229E5AF6000B9532A /* ReciepesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReciepesTableViewCell.swift; sourceTree = "<group>"; };
+		5FBF4F1729E5FFDD00B9532A /* UIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackView.swift; sourceTree = "<group>"; };
 		5FD2631E29E5602100C18E90 /* CookingRecipes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CookingRecipes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FD2632129E5602100C18E90 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5FD2632329E5602100C18E90 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -45,6 +51,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5FBF4F0E29E5917000B9532A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5FBF4F0F29E5918A00B9532A /* Receipt.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		5FBF4F1129E591EA00B9532A /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				5FBF4F1229E5AF6000B9532A /* ReciepesTableViewCell.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		5FBF4F1629E5FFB400B9532A /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5FBF4F1729E5FFDD00B9532A /* UIStackView.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		5FD2631529E5602100C18E90 = {
 			isa = PBXGroup;
 			children = (
@@ -64,12 +94,13 @@
 		5FD2632029E5602100C18E90 /* CookingRecipes */ = {
 			isa = PBXGroup;
 			children = (
-				5FD2632129E5602100C18E90 /* AppDelegate.swift */,
-				5FD2632329E5602100C18E90 /* SceneDelegate.swift */,
+				5FBF4F1629E5FFB400B9532A /* Extensions */,
 				5FD2633529E56CB100C18E90 /* RecipesList */,
 				5FD2632A29E5602300C18E90 /* Assets.xcassets */,
 				5FD2632C29E5602300C18E90 /* LaunchScreen.storyboard */,
 				5FD2632F29E5602300C18E90 /* Info.plist */,
+				5FD2632129E5602100C18E90 /* AppDelegate.swift */,
+				5FD2632329E5602100C18E90 /* SceneDelegate.swift */,
 			);
 			path = CookingRecipes;
 			sourceTree = "<group>";
@@ -77,6 +108,8 @@
 		5FD2633529E56CB100C18E90 /* RecipesList */ = {
 			isa = PBXGroup;
 			children = (
+				5FBF4F1129E591EA00B9532A /* UI */,
+				5FBF4F0E29E5917000B9532A /* Models */,
 				5FD2632529E5602100C18E90 /* RecipesListViewController.swift */,
 				5FD2633629E56D7100C18E90 /* RecipesListInteractor.swift */,
 				5FD2633829E56D8700C18E90 /* RecipesListPresenter.swift */,
@@ -160,11 +193,14 @@
 				5FD2633729E56D7100C18E90 /* RecipesListInteractor.swift in Sources */,
 				5FD2633F29E56E4F00C18E90 /* RecipesListModel.swift in Sources */,
 				5FD2633929E56D8700C18E90 /* RecipesListPresenter.swift in Sources */,
+				5FBF4F1329E5AF6000B9532A /* ReciepesTableViewCell.swift in Sources */,
+				5FBF4F1029E5918A00B9532A /* Receipt.swift in Sources */,
 				5FD2633B29E56DAB00C18E90 /* RecipesListRouter.swift in Sources */,
 				5FD2632629E5602100C18E90 /* RecipesListViewController.swift in Sources */,
 				5FD2632229E5602100C18E90 /* AppDelegate.swift in Sources */,
 				5FD2633D29E56E0C00C18E90 /* RecipesListWorker.swift in Sources */,
 				5FD2632429E5602100C18E90 /* SceneDelegate.swift in Sources */,
+				5FBF4F1829E5FFDD00B9532A /* UIStackView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

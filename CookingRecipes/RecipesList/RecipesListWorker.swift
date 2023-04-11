@@ -6,3 +6,16 @@
 //
 
 import Foundation
+
+protocol ReceipeListDoingSomethingWorkerLogic {
+    func doSomething(completionHandler: (RecipesModels.FetchReceipt.Response) -> Void)
+}
+
+class ReceipeListWorker: ReceipeListDoingSomethingWorkerLogic {
+    
+    func doSomething(completionHandler: (RecipesModels.FetchReceipt.Response) -> Void) {
+        //do Smt
+    }
+    
+    
+}

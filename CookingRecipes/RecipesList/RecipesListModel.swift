@@ -7,3 +7,20 @@
 
 import Foundation
 
+enum RecipesModels {
+    
+    enum FetchReceipt {
+        
+        struct Request {
+            
+        }
+        
+        struct Response {
+            let receipe: [Receipt]
+        }
+        
+        struct ViewModel {
+            let recipe: [Receipt]
+        }
+    }
+}

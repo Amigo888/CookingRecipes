@@ -7,14 +7,20 @@
 
 import UIKit
 
+protocol RecipesListDisplayLogic: AnyObject {
+    func displayRecipesList(viewModel: RecipesModels.FetchReceipt.ViewModel)
+}
+
 class RecipesListViewController: UIViewController {
+    
+    var interactor: ReceipeListBuisnessLogic?
     
     private let tableView : UITableView = {
         let tableView = UITableView()
         return tableView
     }()
     
-    var receipts: [Int] = []
+    var receipts: [Receipt] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +31,40 @@ class RecipesListViewController: UIViewController {
     private func setupTableView() {
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(ReciepesTableViewCell.self, forCellReuseIdentifier: ReciepesTableViewCell.identifier)
+        view.addSubview(tableView)
+    }
+    
+//    private func fetchRecipesList() {
+//        let request = RecipesModels.FetchReceipt.ViewModel()
+//        interactor?.fetchFoods(request: request)
+//    }
+    
+    private func setup() {
+        let viewController = self
+        let interactor = ReceipeListInteractor()
+        let presenter = ReceipeListPresenter()
+        
+        interactor.presenter = presenter
+        presenter.viewController = self
+        
+        self.interactor = interactor
+    }
+    
+    private func doSomething() {
+        let request = RecipesModels.FetchReceipt.Request()
+        interactor?.fetchFoods(request: request)
+    }
+    
+   
+}
+
+extension RecipesListViewController: RecipesListDisplayLogic {
+    func displayRecipesList(viewModel: RecipesModels.FetchReceipt.ViewModel) {
+        receipts = viewModel.recipe
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
 }
 
@@ -35,10 +74,15 @@ extension RecipesListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ReciepesTableViewCell.identifier, for: indexPath) as? ReciepesTableViewCell else { return UITableViewCell() }
+        let receipt = receipts[indexPath.row]
+        cell.configureReceiptCell(receipt: receipt)
+        return cell
     }
 }
 
 extension RecipesListViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        70
+    }
 }
