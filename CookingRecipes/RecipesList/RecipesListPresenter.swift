@@ -19,7 +19,5 @@ class ReceipeListPresenter: ReceipeListPresentationLogic {
         let response = response.receipe
         let viewModel = RecipesModels.FetchReceipt.ViewModel(recipe: response)
         viewController?.displayRecipesList(viewModel: viewModel)
+        }
     }
-    
-    
-}

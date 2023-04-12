@@ -8,15 +8,16 @@
 import Foundation
 
 protocol ReceipeListDoingSomethingWorkerLogic {
-    func fetchReceipt() -> [Receipt]
+    func fetchReceipt(completion: @escaping (Result<[Receipt], Error>) -> Void)
 }
 
 class ReceipeListWorker: ReceipeListDoingSomethingWorkerLogic {
-    
-    func fetchReceipt() -> [Receipt] {
-        let sourceManager = Source.makeContacts()
-        return sourceManager
+    func fetchReceipt(completion: @escaping (Result<[Receipt], Error>) -> Void) {
+        do {
+            let receipes = Source.makeContacts()
+            completion(.success(receipes))
+        } catch {
+            completion(.failure(fatalError()))
+        }
     }
-    
-    
 }

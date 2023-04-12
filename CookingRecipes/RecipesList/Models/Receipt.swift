@@ -13,23 +13,23 @@ struct Receipt {
 }
 
 struct ImageName {
-    static let person = "person"
-    static let fillPerson = "person.fill"
+    static let pasta = "pasta"
+    static let pizza = "pizza"
 }
 
 struct Source {
     static func makeContacts() -> [Receipt] {
         [
-            .init(image: .init(systemName: ImageName.person)!, name: "Pizza"),
-            .init(image: .init(systemName: ImageName.fillPerson)!, name: "Pasta"),
-            .init(image: .init(systemName: ImageName.person)!, name: "Borsh"),
-            .init(image: .init(systemName: ImageName.fillPerson)!, name: "Pelmeni"),
-            .init(image: .init(systemName: ImageName.person)!, name: "Milk"),
-            .init(image: .init(systemName: ImageName.fillPerson)!, name: "Garlic"),
-            .init(image: .init(systemName: ImageName.person)!, name: "Cheese"),
-            .init(image: .init(systemName: ImageName.fillPerson)!, name: "Sausage"),
-            .init(image: .init(systemName: ImageName.person)!, name: "Varenik"),
-            .init(image: .init(systemName: ImageName.fillPerson)!, name: "Pelmeni"),
+            .init(image: .init(named: ImageName.pasta)!, name: "Pizza"),
+            .init(image: .init(named: ImageName.pizza)!, name: "Pasta"),
+            .init(image: .init(named: ImageName.pasta)!, name: "Borsh"),
+            .init(image: .init(named: ImageName.pizza)!, name: "Pelmeni"),
+            .init(image: .init(named: ImageName.pasta)!, name: "Milk"),
+            .init(image: .init(named: ImageName.pizza)!, name: "Garlic"),
+            .init(image: .init(named: ImageName.pasta)!, name: "Cheese"),
+            .init(image: .init(named: ImageName.pizza)!, name: "Sausage"),
+            .init(image: .init(named: ImageName.pasta)!, name: "Varenik"),
+            .init(image: .init(named: ImageName.pizza)!, name: "Pelmeni"),
         ]
     }
 }

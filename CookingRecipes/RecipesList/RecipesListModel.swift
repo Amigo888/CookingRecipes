@@ -22,5 +22,9 @@ enum RecipesModels {
         struct ViewModel {
             let recipe: [Receipt]
         }
+        
+        struct ViewModelFailure {
+            let errorMessage: String
+        }
     }
 }

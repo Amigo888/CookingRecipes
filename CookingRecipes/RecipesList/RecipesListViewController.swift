@@ -9,23 +9,32 @@ import UIKit
 
 protocol RecipesListDisplayLogic: AnyObject {
     func displayRecipesList(viewModel: RecipesModels.FetchReceipt.ViewModel)
+    func displayRecipesListFailure(viewModel: RecipesModels.FetchReceipt.ViewModelFailure)
 }
 
 class RecipesListViewController: UIViewController {
     
+    enum Constants {
+        static let rowHeight: CGFloat = 100
+    }
+    
     var interactor: ReceipeListBuisnessLogic?
     
-    private let tableView : UITableView = {
+    private lazy var tableView : UITableView = {
         let tableView = UITableView()
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(ReciepesTableViewCell.self, forCellReuseIdentifier: String(describing: ReciepesTableViewCell.self))
         return tableView
     }()
     
-    var receipts: [Receipt] = []
+    private var receipts: [Receipt] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        setupTableView()
+        setupUI()
+        fetchRecipesList()
     }
     
     override func viewDidLayoutSubviews() {
@@ -33,25 +42,21 @@ class RecipesListViewController: UIViewController {
     }
     
     
-    private func setupTableView() {
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.register(ReciepesTableViewCell.self, forCellReuseIdentifier: ReciepesTableViewCell.identifier)
-        view.addSubview(tableView)
+    private func setupUI() {
+       view.addSubview(tableView)
     }
-    
-//    private func fetchRecipesList() {
-//        let request = RecipesModels.FetchReceipt.ViewModel()
-//        interactor?.fetchFoods(request: request)
-//    }
     
     private func setup() {
         let viewController = self
-        let interactor = ReceipeListInteractor()
+        let interactor = ReceipeListInteractor(worker: ReceipeListWorker())
         let presenter = ReceipeListPresenter()
         viewController.interactor = interactor
         interactor.presenter = presenter
         presenter.viewController = viewController
+    }
+    
+    private func fetchRecipesList() {
+        interactor?.fetchFoods(request: .init())
     }
    
 }
@@ -63,6 +68,9 @@ extension RecipesListViewController: RecipesListDisplayLogic {
             self.tableView.reloadData()
         }
     }
+    func displayRecipesListFailure(viewModel: RecipesModels.FetchReceipt.ViewModelFailure) {
+        //display error message
+    }
 }
 
 extension RecipesListViewController: UITableViewDataSource {
@@ -71,7 +79,7 @@ extension RecipesListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ReciepesTableViewCell.identifier, for: indexPath) as? ReciepesTableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ReciepesTableViewCell.self), for: indexPath) as? ReciepesTableViewCell else { return UITableViewCell() }
         let receipt = receipts[indexPath.row]
         cell.configureReceiptCell(receipt: receipt)
         return cell
@@ -80,6 +88,6 @@ extension RecipesListViewController: UITableViewDataSource {
 
 extension RecipesListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        70
+        Constants.rowHeight
     }
 }

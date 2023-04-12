@@ -9,21 +9,29 @@ import UIKit
 
 class ReciepesTableViewCell: UITableViewCell {
     
-    static let identifier = "ReciepesTableViewCell"
+    enum Constants {
+        static let imageViewHeight: CGFloat = 70
+        static let imageViewWidth: CGFloat = 70
+        static let basicConstraint: CGFloat = 16
+        static let labelLeading: CGFloat = 35
+    }
     
-    private let receiptLabel : UILabel = {
+    static let identifier = String(describing: ReciepesTableViewCell.self)
+
+    
+    private lazy var receiptLabel : UILabel = {
         let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 24, weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private let receiptImageView : UIImageView = {
+    private lazy var receiptImageView : UIImageView = {
         let image = UIImageView()
+        image.clipsToBounds = true
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
-    
-    var stackView = UIStackView()
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -48,11 +56,6 @@ class ReciepesTableViewCell: UITableViewCell {
         self.addSubview(receiptImageView)
         self.addSubview(receiptLabel)
         
-        stackView = UIStackView(arrangedSubviews: [receiptImageView, receiptLabel],
-                                axis: .horizontal,
-                                spacing: 30,
-                                distribution: .equalCentering)
-        self.addSubview(stackView)
     }
     
     func configureReceiptCell(receipt: Receipt) {
@@ -63,10 +66,13 @@ class ReciepesTableViewCell: UITableViewCell {
     private func setConstraints() {
         
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
-            stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
-            stackView.topAnchor.constraint(equalTo: self.topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            receiptImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constants.basicConstraint),
+            receiptImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.basicConstraint),
+            receiptImageView.heightAnchor.constraint(equalToConstant: Constants.imageViewHeight),
+            receiptImageView.widthAnchor.constraint(equalToConstant: Constants.imageViewWidth),
+            
+            receiptLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constants.labelLeading),
+            receiptLabel.leadingAnchor.constraint(equalTo: receiptImageView.trailingAnchor, constant: Constants.basicConstraint)
         ])
     }
     
