@@ -11,13 +11,18 @@ protocol ReceipeListDoingSomethingWorkerLogic {
     func fetchReceipt(completion: @escaping (Result<[Receipt], Error>) -> Void)
 }
 
+enum APIError: Error {
+    case failedTogetData  //emptylist
+    case serverError(Error)
+}
+
 class ReceipeListWorker: ReceipeListDoingSomethingWorkerLogic {
     func fetchReceipt(completion: @escaping (Result<[Receipt], Error>) -> Void) {
         do {
             let receipes = Source.makeContacts()
             completion(.success(receipes))
         } catch {
-            completion(.failure(fatalError()))
+            completion(.failure(APIError.failedTogetData))
         }
     }
 }

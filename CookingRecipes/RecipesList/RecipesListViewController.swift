@@ -43,7 +43,7 @@ class RecipesListViewController: UIViewController {
     
     
     private func setupUI() {
-       view.addSubview(tableView)
+        view.addSubview(tableView)
     }
     
     private func setup() {
@@ -58,19 +58,26 @@ class RecipesListViewController: UIViewController {
     private func fetchRecipesList() {
         interactor?.fetchFoods(request: .init())
     }
-   
+    
 }
 
 extension RecipesListViewController: RecipesListDisplayLogic {
     func displayRecipesList(viewModel: RecipesModels.FetchReceipt.ViewModel) {
-        receipts = viewModel.recipe
+        let receipt = viewModel.recipe
+        receipts = receipt
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
     }
+    
     func displayRecipesListFailure(viewModel: RecipesModels.FetchReceipt.ViewModelFailure) {
-        //display error message
+        let alertController = UIAlertController(title: viewModel.errorMessage, message: "", preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: "OK", style: .default)
+        alertController.addAction(alertAction)
+        view.backgroundColor = .red
+        self.present(alertController, animated: true)
     }
+    
 }
 
 extension RecipesListViewController: UITableViewDataSource {

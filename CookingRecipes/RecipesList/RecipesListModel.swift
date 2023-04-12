@@ -11,12 +11,10 @@ enum RecipesModels {
     
     enum FetchReceipt {
         
-        struct Request {
-//            let receipe: [Receipt]
-        }
+        struct Request {}
         
         struct Response {
-            let receipe: [Receipt]
+            let receipe: Result<[Receipt], Error>
         }
         
         struct ViewModel {

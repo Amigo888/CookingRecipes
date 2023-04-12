@@ -13,11 +13,24 @@ protocol ReceipeListPresentationLogic {
 
 class ReceipeListPresenter: ReceipeListPresentationLogic {
     
+    
     weak var viewController: RecipesListDisplayLogic?
     
     func presentFetchResults(response: RecipesModels.FetchReceipt.Response) {
-        let response = response.receipe
-        let viewModel = RecipesModels.FetchReceipt.ViewModel(recipe: response)
-        viewController?.displayRecipesList(viewModel: viewModel)
+        switch response.receipe {
+        case .success(let receipes):
+            if receipes.isEmpty {
+                let response = receipes
+                let viewModel = RecipesModels.FetchReceipt.ViewModelFailure(errorMessage: "Not data")
+                viewController?.displayRecipesListFailure(viewModel: viewModel)
+            } else {
+                let response = receipes
+                let viewModel = RecipesModels.FetchReceipt.ViewModel(recipe: response)
+                viewController?.displayRecipesList(viewModel: viewModel)
+            }
+        case.failure(let error):
+            let viewModel = RecipesModels.FetchReceipt.ViewModelFailure(errorMessage: error.localizedDescription)
+            viewController?.displayRecipesListFailure(viewModel: viewModel)
         }
     }
+}
