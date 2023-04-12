@@ -24,9 +24,14 @@ class RecipesListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setup()
         setupTableView()
     }
+    
+    override func viewDidLayoutSubviews() {
+        tableView.frame = view.bounds
+    }
+    
     
     private func setupTableView() {
         tableView.dataSource = self
@@ -44,15 +49,13 @@ class RecipesListViewController: UIViewController {
         let viewController = self
         let interactor = ReceipeListInteractor()
         let presenter = ReceipeListPresenter()
-        
+        viewController.interactor = interactor
         interactor.presenter = presenter
-        presenter.viewController = self
-        
-        self.interactor = interactor
+        presenter.viewController = viewController
     }
     
     private func doSomething() {
-        let request = RecipesModels.FetchReceipt.Request()
+        let request = RecipesModels.FetchReceipt.Request(receipe: <#[Receipt]#>)
         interactor?.fetchFoods(request: request)
     }
     

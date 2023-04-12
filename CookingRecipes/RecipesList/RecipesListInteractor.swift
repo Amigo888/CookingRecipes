@@ -17,8 +17,8 @@ class ReceipeListInteractor: ReceipeListBuisnessLogic {
     var worker: ReceipeListDoingSomethingWorkerLogic?
     
     func fetchFoods(request: RecipesModels.FetchReceipt.Request) {
-        worker?.doSomething() { someResponse in
-            presenter?.presentFetchResults(response: someResponse)
-        }
+        let response  = worker?.fetchReceipt()
+        presenter?.presentFetchResults(response: response)
     }
 }
+

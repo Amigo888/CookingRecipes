@@ -8,13 +8,14 @@
 import Foundation
 
 protocol ReceipeListDoingSomethingWorkerLogic {
-    func doSomething(completionHandler: (RecipesModels.FetchReceipt.Response) -> Void)
+    func fetchReceipt() -> [Receipt]
 }
 
 class ReceipeListWorker: ReceipeListDoingSomethingWorkerLogic {
     
-    func doSomething(completionHandler: (RecipesModels.FetchReceipt.Response) -> Void) {
-        //do Smt
+    func fetchReceipt() -> [Receipt] {
+        let sourceManager = Source.makeContacts()
+        return sourceManager
     }
     
     
