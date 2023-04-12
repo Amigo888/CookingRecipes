@@ -12,7 +12,7 @@ enum RecipesModels {
     enum FetchReceipt {
         
         struct Request {
-            let receipe: [Receipt]
+//            let receipe: [Receipt]
         }
         
         struct Response {

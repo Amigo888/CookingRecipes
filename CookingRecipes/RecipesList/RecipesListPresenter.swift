@@ -16,7 +16,8 @@ class ReceipeListPresenter: ReceipeListPresentationLogic {
     weak var viewController: RecipesListDisplayLogic?
     
     func presentFetchResults(response: RecipesModels.FetchReceipt.Response) {
-        let viewModel = RecipesModels.FetchReceipt.ViewModel(recipe: <#T##[Receipt]#>)
+        let response = response.receipe
+        let viewModel = RecipesModels.FetchReceipt.ViewModel(recipe: response)
         viewController?.displayRecipesList(viewModel: viewModel)
     }
     

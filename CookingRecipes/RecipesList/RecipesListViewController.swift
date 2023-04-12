@@ -53,12 +53,6 @@ class RecipesListViewController: UIViewController {
         interactor.presenter = presenter
         presenter.viewController = viewController
     }
-    
-    private func doSomething() {
-        let request = RecipesModels.FetchReceipt.Request(receipe: <#[Receipt]#>)
-        interactor?.fetchFoods(request: request)
-    }
-    
    
 }
 
