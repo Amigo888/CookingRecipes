@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5F45E67A29E8082E00D151DE /* CustomHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F45E67929E8082E00D151DE /* CustomHeaderView.swift */; };
+		5F45E67C29E80C4100D151DE /* HeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F45E67B29E80C4100D151DE /* HeaderCollectionViewCell.swift */; };
+		5F45E67F29E8126B00D151DE /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F45E67E29E8126B00D151DE /* APIConstants.swift */; };
 		5FBF4F1029E5918A00B9532A /* Receipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBF4F0F29E5918A00B9532A /* Receipt.swift */; };
 		5FBF4F1329E5AF6000B9532A /* ReciepesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBF4F1229E5AF6000B9532A /* ReciepesTableViewCell.swift */; };
 		5FBF4F1829E5FFDD00B9532A /* UIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBF4F1729E5FFDD00B9532A /* UIStackView.swift */; };
@@ -23,6 +26,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5F45E67929E8082E00D151DE /* CustomHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHeaderView.swift; sourceTree = "<group>"; };
+		5F45E67B29E80C4100D151DE /* HeaderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCollectionViewCell.swift; sourceTree = "<group>"; };
+		5F45E67E29E8126B00D151DE /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
 		5FBF4F0F29E5918A00B9532A /* Receipt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Receipt.swift; sourceTree = "<group>"; };
 		5FBF4F1229E5AF6000B9532A /* ReciepesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReciepesTableViewCell.swift; sourceTree = "<group>"; };
 		5FBF4F1729E5FFDD00B9532A /* UIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackView.swift; sourceTree = "<group>"; };
@@ -51,6 +57,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5F45E67D29E8124C00D151DE /* APIConstants */ = {
+			isa = PBXGroup;
+			children = (
+				5F45E67E29E8126B00D151DE /* APIConstants.swift */,
+			);
+			path = APIConstants;
+			sourceTree = "<group>";
+		};
 		5FBF4F0E29E5917000B9532A /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -63,6 +77,8 @@
 			isa = PBXGroup;
 			children = (
 				5FBF4F1229E5AF6000B9532A /* ReciepesTableViewCell.swift */,
+				5F45E67929E8082E00D151DE /* CustomHeaderView.swift */,
+				5F45E67B29E80C4100D151DE /* HeaderCollectionViewCell.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -94,6 +110,7 @@
 		5FD2632029E5602100C18E90 /* CookingRecipes */ = {
 			isa = PBXGroup;
 			children = (
+				5F45E67D29E8124C00D151DE /* APIConstants */,
 				5FBF4F1629E5FFB400B9532A /* Extensions */,
 				5FD2633529E56CB100C18E90 /* RecipesList */,
 				5FD2632A29E5602300C18E90 /* Assets.xcassets */,
@@ -190,12 +207,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5F45E67C29E80C4100D151DE /* HeaderCollectionViewCell.swift in Sources */,
 				5FD2633729E56D7100C18E90 /* RecipesListInteractor.swift in Sources */,
 				5FD2633F29E56E4F00C18E90 /* RecipesListModel.swift in Sources */,
 				5FD2633929E56D8700C18E90 /* RecipesListPresenter.swift in Sources */,
 				5FBF4F1329E5AF6000B9532A /* ReciepesTableViewCell.swift in Sources */,
+				5F45E67A29E8082E00D151DE /* CustomHeaderView.swift in Sources */,
 				5FBF4F1029E5918A00B9532A /* Receipt.swift in Sources */,
 				5FD2633B29E56DAB00C18E90 /* RecipesListRouter.swift in Sources */,
+				5F45E67F29E8126B00D151DE /* APIConstants.swift in Sources */,
 				5FD2632629E5602100C18E90 /* RecipesListViewController.swift in Sources */,
 				5FD2632229E5602100C18E90 /* AppDelegate.swift in Sources */,
 				5FD2633D29E56E0C00C18E90 /* RecipesListWorker.swift in Sources */,

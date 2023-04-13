@@ -17,7 +17,6 @@ class ReciepesTableViewCell: UITableViewCell {
     }
     
     static let identifier = String(describing: ReciepesTableViewCell.self)
-
     
     private lazy var receiptLabel : UILabel = {
         let label = UILabel()

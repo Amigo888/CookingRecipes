@@ -16,14 +16,23 @@ class RecipesListViewController: UIViewController {
     
     enum Constants {
         static let rowHeight: CGFloat = 100
+        static let headerXY: CGFloat = 0
+        static let headerHeight: CGFloat = 50
     }
     
     var interactor: ReceipeListBuisnessLogic?
+    var headerView: CustomHeaderView?
     
     private lazy var tableView : UITableView = {
         let tableView = UITableView()
         tableView.dataSource = self
         tableView.delegate = self
+        headerView = CustomHeaderView(frame: CGRect(x: Constants.headerXY,
+                                                    y: Constants.headerXY,
+                                                    width: view.bounds.width,
+                                                    height: Constants.headerHeight),
+                                      mealTypes: APIConstants.mealTypes)
+        tableView.tableHeaderView = headerView
         tableView.register(ReciepesTableViewCell.self, forCellReuseIdentifier: String(describing: ReciepesTableViewCell.self))
         return tableView
     }()
