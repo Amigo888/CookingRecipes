@@ -9,16 +9,18 @@ import UIKit
 
 class HeaderCollectionViewCell: UICollectionViewCell {
     
-    private lazy var button : UIButton = {
-        let button = UIButton()
-        button.layer.cornerRadius = 10
-        button.backgroundColor = .white
-        button.layer.borderColor = UIColor.black.cgColor
-        button.layer.borderWidth = 1
-        button.isEnabled = false
-        button.setTitleColor(.black, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
+    private lazy var label : UILabel = {
+        let label = UILabel()
+        label.layer.cornerRadius = 10
+        label.backgroundColor = .white
+        label.layer.borderColor = UIColor.black.cgColor
+        label.layer.borderWidth = 2
+        label.textAlignment = .center
+        label.font = .systemFont(ofSize: 18, weight: .medium)
+        label.textColor = .black
+        label.isEnabled = false
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     override init(frame: CGRect) {
@@ -32,14 +34,14 @@ class HeaderCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupUI() {
-        addSubview(button)
+        addSubview(label)
     }
     
     private func setupConstraints() {
-        button.frame = self.bounds
+        label.frame = self.bounds
     }
     
     func configureCell(mealType: String) {
-        button.setTitle(mealType, for: .normal)
+        label.text = mealType
     }
 }

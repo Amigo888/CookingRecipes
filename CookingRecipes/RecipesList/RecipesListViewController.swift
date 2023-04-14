@@ -113,7 +113,7 @@ extension RecipesListViewController: UITableViewDelegate {
 }
 
 extension RecipesListViewController: CustoHeaderViewDelegate {
-    func getTitle(title: String) {
+    func didSelectItem(_ title: String) {
         interactor?.fetchFoods(request: RecipesModels.FetchReceipt.Request(typeOfMeal: title))
     }
 }

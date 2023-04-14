@@ -8,7 +8,7 @@
 import UIKit
 
 protocol CustoHeaderViewDelegate {
-    func getTitle(title: String)
+    func didSelectItem(_ title: String)
 }
 
 class CustomHeaderView: UIView {
@@ -55,7 +55,7 @@ class CustomHeaderView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         addSubview(collectionView)
-        collectionView.frame = self.bounds
+        setupConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -66,6 +66,15 @@ class CustomHeaderView: UIView {
         self.mealTypes = mealTypes
         super.init(frame: frame)
     }
+    
+    private func setupConstraints() {
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: self.topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor)])
+        
+    }
 }
 
 extension CustomHeaderView: UICollectionViewDataSource {
@@ -75,7 +84,7 @@ extension CustomHeaderView: UICollectionViewDataSource {
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: HeaderCollectionViewCell.self), for: indexPath) as? HeaderCollectionViewCell else { return UICollectionViewCell() }
-        let mealType = mealTypes[indexPath.row].capitalizerFirstLetter()
+        let mealType = mealTypes[indexPath.row].capitalized
         cell.configureCell(mealType: mealType)
         return cell
     }
@@ -85,7 +94,7 @@ extension CustomHeaderView: UICollectionViewDataSource {
 extension CustomHeaderView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = mealTypes[indexPath.row]
-        delegate?.getTitle(title: item)
+        delegate?.didSelectItem(item)
     }
 }
 
