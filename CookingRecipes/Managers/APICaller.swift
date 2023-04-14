@@ -7,64 +7,30 @@
 
 import Foundation
 
-
-
-enum APIMethod  {
-    
-    case fetchPayments
-    case fetchApprovals
-    
-    var params: [String: String] {
-        switch self {
-        case .fetchPayments:
-            return ["apiKey": "dasdasdas"]
-        case .fetchApprovals:
-            return [:]
-        }
-    }
-    
-    var header: [String: String] {
-        return ["header": "dsadas"]
-    }
-}
-//let paymentsFetch = APIMethod.fetchPayments
-//paymentsFetch.params
-
-
 class URLBuilder {
-    
-    //        func build(_ method: APIMethod) -> URL? {
-    //            let params = method.params
-    //
-    //            return URL.applicationDirectory
-    //        }
-    
-    static func buildURL(scheme: String, host: String, path: String, queryParams: [String: String]?) -> URL? {
+    static func buildURL(scheme: String, host: String, path: String, queryItems: [URLQueryItem], value: String) -> URL? {
         var components = URLComponents()
         components.scheme = scheme
         components.host = host
         components.path = path
-        if let queryParams = queryParams {
-            components.queryItems = queryParams.map { URLQueryItem(name: $0, value: $1) }
-        }
+        components.queryItems = queryItems
+        components.queryItems?[0].value = value
         return components.url
     }
 }
-
 
 enum CustomError: Error {
     case invalidURL
     case invalidData
 }
 
-//generic protocol
-protocol APICallerPr {
+protocol APICallerProtocol {
     func makeRequest<T: Decodable>(with url: URL?, expecting: T.Type ,completion: @escaping(Result<T, Error>) -> Void)
 }
 
-class APICaller {
+class APICaller: APICallerProtocol {
     
-    static func makeRequest<T: Decodable>(with url: URL?, expecting: T.Type ,completion: @escaping(Result<T, Error>) -> Void) {
+    func makeRequest<T: Decodable>(with url: URL?, expecting: T.Type ,completion: @escaping(Result<T, Error>) -> Void) {
         guard let url = url else { return completion(.failure(CustomError.invalidURL)) }
         let task = URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data, error == nil else  {  return completion(.failure(CustomError.invalidData)) }

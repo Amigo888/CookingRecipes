@@ -20,7 +20,6 @@ class ReceipeListPresenter: ReceipeListPresentationLogic {
         switch response.receipe {
         case .success(let receipes):
             if receipes.isEmpty {
-                let response = receipes
                 let viewModel = RecipesModels.FetchReceipt.ViewModelFailure(errorMessage: "Not data")
                 viewController?.displayRecipesListFailure(viewModel: viewModel)
             } else {

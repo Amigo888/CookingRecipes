@@ -40,6 +40,7 @@ class RecipesListViewController: UIViewController {
     
     private var receipts: [Receipt] = []
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -59,7 +60,8 @@ class RecipesListViewController: UIViewController {
     
     private func setup() {
         let viewController = self
-        let interactor = ReceipeListInteractor(worker: ReceipeListWorker())
+        let apiCaller = APICaller()
+        let interactor = ReceipeListInteractor(worker: ReceipeListWorker(apiCaller: apiCaller))
         let presenter = ReceipeListPresenter()
         viewController.interactor = interactor
         interactor.presenter = presenter
@@ -67,7 +69,7 @@ class RecipesListViewController: UIViewController {
     }
     
     private func fetchRecipesList() {
-        interactor?.fetchFoods(request: .init())
+        interactor?.fetchFoods(request: .init(typeOfMeal: "main course"))
     }
     
 }
@@ -112,6 +114,6 @@ extension RecipesListViewController: UITableViewDelegate {
 
 extension RecipesListViewController: CustoHeaderViewDelegate {
     func getTitle(title: String) {
-        print(title)
+        interactor?.fetchFoods(request: RecipesModels.FetchReceipt.Request(typeOfMeal: title))
     }
 }

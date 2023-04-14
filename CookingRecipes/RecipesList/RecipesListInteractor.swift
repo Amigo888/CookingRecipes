@@ -19,9 +19,9 @@ class ReceipeListInteractor: ReceipeListBuisnessLogic {
     init(worker: ReceipeListDoingSomethingWorkerLogic) {
         self.worker = worker
     }
-    
+
     func fetchFoods(request: RecipesModels.FetchReceipt.Request) {
-        worker.fetchReceipt(completion: { receipes in
+        worker.fetchReceipt(type: request.typeOfMeal, completion: { receipes in
             let response = RecipesModels.FetchReceipt.Response(receipe: receipes)
             self.presenter?.presentFetchResults(response: response)
         })

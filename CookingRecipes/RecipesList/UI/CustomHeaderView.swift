@@ -75,7 +75,7 @@ extension CustomHeaderView: UICollectionViewDataSource {
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: HeaderCollectionViewCell.self), for: indexPath) as? HeaderCollectionViewCell else { return UICollectionViewCell() }
-        let mealType = mealTypes[indexPath.row]
+        let mealType = mealTypes[indexPath.row].capitalizerFirstLetter()
         cell.configureCell(mealType: mealType)
         return cell
     }
