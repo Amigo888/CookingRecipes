@@ -11,7 +11,9 @@ enum RecipesModels {
     
     enum FetchReceipt {
         
-        struct Request {}
+        struct Request {
+            let typeOfMeal: String
+        }
         
         struct Response {
             let receipe: Result<[Receipt], Error>

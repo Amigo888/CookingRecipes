@@ -16,19 +16,30 @@ class RecipesListViewController: UIViewController {
     
     enum Constants {
         static let rowHeight: CGFloat = 100
+        static let headerXY: CGFloat = 0
+        static let headerHeight: CGFloat = 50
     }
     
     var interactor: ReceipeListBuisnessLogic?
+    var headerView: CustomHeaderView?
     
     private lazy var tableView : UITableView = {
         let tableView = UITableView()
         tableView.dataSource = self
         tableView.delegate = self
+        headerView = CustomHeaderView(frame: CGRect(x: Constants.headerXY,
+                                                    y: Constants.headerXY,
+                                                    width: view.bounds.width,
+                                                    height: Constants.headerHeight),
+                                      mealTypes: APIConstants.mealTypes)
+        headerView?.delegate = self
+        tableView.tableHeaderView = headerView
         tableView.register(ReciepesTableViewCell.self, forCellReuseIdentifier: String(describing: ReciepesTableViewCell.self))
         return tableView
     }()
     
     private var receipts: [Receipt] = []
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,12 +54,14 @@ class RecipesListViewController: UIViewController {
     
     
     private func setupUI() {
+        title = "RECEIPES"
         view.addSubview(tableView)
     }
     
     private func setup() {
         let viewController = self
-        let interactor = ReceipeListInteractor(worker: ReceipeListWorker())
+        let apiCaller = APICaller()
+        let interactor = ReceipeListInteractor(worker: ReceipeListWorker(apiCaller: apiCaller))
         let presenter = ReceipeListPresenter()
         viewController.interactor = interactor
         interactor.presenter = presenter
@@ -56,7 +69,7 @@ class RecipesListViewController: UIViewController {
     }
     
     private func fetchRecipesList() {
-        interactor?.fetchFoods(request: .init())
+        interactor?.fetchFoods(request: .init(typeOfMeal: "main course"))
     }
     
 }
@@ -96,5 +109,11 @@ extension RecipesListViewController: UITableViewDataSource {
 extension RecipesListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         Constants.rowHeight
+    }
+}
+
+extension RecipesListViewController: CustoHeaderViewDelegate {
+    func didSelectItem(_ title: String) {
+        interactor?.fetchFoods(request: RecipesModels.FetchReceipt.Request(typeOfMeal: title))
     }
 }

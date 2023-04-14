@@ -6,22 +6,23 @@
 //
 
 import UIKit
+import SDWebImage
 
 class ReciepesTableViewCell: UITableViewCell {
     
     enum Constants {
         static let imageViewHeight: CGFloat = 70
-        static let imageViewWidth: CGFloat = 70
+        static let imageViewWidth: CGFloat = 90
         static let basicConstraint: CGFloat = 16
-        static let labelLeading: CGFloat = 35
+        static let labelTopBottom: CGFloat = 5
     }
     
     static let identifier = String(describing: ReciepesTableViewCell.self)
-
     
     private lazy var receiptLabel : UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 24, weight: .medium)
+        label.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -29,13 +30,14 @@ class ReciepesTableViewCell: UITableViewCell {
     private lazy var receiptImageView : UIImageView = {
         let image = UIImageView()
         image.clipsToBounds = true
+        image.contentMode = .scaleAspectFit
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        receiptImageView.layer.cornerRadius = receiptImageView.frame.width / 2
+        receiptImageView.layer.cornerRadius = 20
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -53,14 +55,16 @@ class ReciepesTableViewCell: UITableViewCell {
         self.backgroundColor = .clear
         self.selectionStyle = .none
         
-        self.addSubview(receiptImageView)
-        self.addSubview(receiptLabel)
+        contentView.addSubview(receiptImageView)
+        contentView.addSubview(receiptLabel)
+        
         
     }
     
     func configureReceiptCell(receipt: Receipt) {
-        receiptLabel.text = receipt.name
-        receiptImageView.image = receipt.image
+        guard let url = URL(string: receipt.image!) else { return }
+        receiptLabel.text = receipt.title
+        receiptImageView.sd_setImage(with: url)
     }
     
     private func setConstraints() {
@@ -71,8 +75,12 @@ class ReciepesTableViewCell: UITableViewCell {
             receiptImageView.heightAnchor.constraint(equalToConstant: Constants.imageViewHeight),
             receiptImageView.widthAnchor.constraint(equalToConstant: Constants.imageViewWidth),
             
-            receiptLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constants.labelLeading),
-            receiptLabel.leadingAnchor.constraint(equalTo: receiptImageView.trailingAnchor, constant: Constants.basicConstraint)
+            receiptLabel.centerYAnchor.constraint(equalTo: receiptImageView.centerYAnchor),
+            receiptLabel.leadingAnchor.constraint(equalTo: receiptImageView.trailingAnchor, constant: Constants.basicConstraint),
+            contentView.trailingAnchor.constraint(equalTo: receiptLabel.trailingAnchor, constant: Constants.basicConstraint),
+            receiptLabel.heightAnchor.constraint(equalToConstant: 100)
+            
+            
         ])
     }
     
