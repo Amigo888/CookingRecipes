@@ -14,4 +14,5 @@ struct APIConstants {
                             "fingerfood","snack","drink"]
     
     static let API_KEY = "a858a579a81c4457b0aaea9ae48f41b0"
+    static let baseURL = "https://api.spoonacular.com/recipes"
 }

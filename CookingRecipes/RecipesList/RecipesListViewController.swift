@@ -32,6 +32,7 @@ class RecipesListViewController: UIViewController {
                                                     width: view.bounds.width,
                                                     height: Constants.headerHeight),
                                       mealTypes: APIConstants.mealTypes)
+        headerView?.delegate = self
         tableView.tableHeaderView = headerView
         tableView.register(ReciepesTableViewCell.self, forCellReuseIdentifier: String(describing: ReciepesTableViewCell.self))
         return tableView
@@ -52,6 +53,7 @@ class RecipesListViewController: UIViewController {
     
     
     private func setupUI() {
+        title = "RECEIPES"
         view.addSubview(tableView)
     }
     
@@ -105,5 +107,11 @@ extension RecipesListViewController: UITableViewDataSource {
 extension RecipesListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         Constants.rowHeight
+    }
+}
+
+extension RecipesListViewController: CustoHeaderViewDelegate {
+    func getTitle(title: String) {
+        print(title)
     }
 }

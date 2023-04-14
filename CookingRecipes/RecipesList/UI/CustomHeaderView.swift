@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol CustoHeaderViewDelegate {
+    func getTitle(title: String)
+}
+
 class CustomHeaderView: UIView {
     
     enum Constants {
@@ -46,6 +50,8 @@ class CustomHeaderView: UIView {
     
     private var mealTypes: [String] = [String]()
     
+    var delegate: CustoHeaderViewDelegate?
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         addSubview(collectionView)
@@ -65,7 +71,6 @@ class CustomHeaderView: UIView {
 extension CustomHeaderView: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return mealTypes.count
-        //mealTypes.count
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -78,6 +83,9 @@ extension CustomHeaderView: UICollectionViewDataSource {
     
 }
 extension CustomHeaderView: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let item = mealTypes[indexPath.row]
+        delegate?.getTitle(title: item)
+    }
 }
 

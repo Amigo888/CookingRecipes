@@ -14,8 +14,9 @@ class HeaderCollectionViewCell: UICollectionViewCell {
         button.layer.cornerRadius = 10
         button.backgroundColor = .white
         button.layer.borderColor = UIColor.black.cgColor
-        button.layer.borderWidth = 0.25
-        button.setTitleColor(.gray, for: .normal)
+        button.layer.borderWidth = 1
+        button.isEnabled = false
+        button.setTitleColor(.black, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
