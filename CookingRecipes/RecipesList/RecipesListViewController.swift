@@ -66,7 +66,7 @@ class RecipesListViewController: UIViewController {
         view.addSubview(tableView)
         view.addSubview(activityIndicator)
         view.backgroundColor = .white
-        activityIndicator.startAnimating()
+        //activityIndicator.startAnimating()
     }
     
     private func setup() {
@@ -98,19 +98,22 @@ extension RecipesListViewController: RecipesListDisplayLogic {
         receipts = receipt
         DispatchQueue.main.async {
             self.tableView.reloadData()
-            UIView.animate(withDuration: 0.2) {
+            UIView.animate(withDuration: 0.1) {
                 self.tableView.isHidden = false
+                self.activityIndicator.stopAnimating()
             }
-            self.activityIndicator.stopAnimating()
         }
     }
+    
     
     func displayRecipesListFailure(viewModel: RecipesModels.FetchReceipt.ViewModelFailure) {
         let alertController = UIAlertController(title: viewModel.errorMessage, message: "", preferredStyle: .alert)
         let alertAction = UIAlertAction(title: "OK", style: .default)
         alertController.addAction(alertAction)
         view.backgroundColor = .red
-        self.present(alertController, animated: true)
+        DispatchQueue.main.async {
+            self.present(alertController, animated: true)
+        }
     }
     
 }
@@ -137,7 +140,11 @@ extension RecipesListViewController: UITableViewDelegate {
 extension RecipesListViewController: CustoHeaderViewDelegate {
     func didSelectItem(_ title: String) {
         UIView.animate(withDuration: 0.2) {
-            self.tableView.isHidden = true
+            self.tableView.visibleCells.forEach { cell in
+                if let cell = cell as? ReciepesTableViewCell {
+                    cell.isHidden = true
+                }
+            }
         }
         self.activityIndicator.startAnimating()
         interactor?.fetchFoods(request: RecipesModels.FetchReceipt.Request(typeOfMeal: title))
