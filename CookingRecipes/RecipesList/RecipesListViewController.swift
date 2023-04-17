@@ -38,6 +38,13 @@ class RecipesListViewController: UIViewController {
         return tableView
     }()
     
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .medium)
+        indicator.color = .darkGray
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        return indicator
+    }()
+    
     private var receipts: [Receipt] = []
     
     
@@ -45,6 +52,7 @@ class RecipesListViewController: UIViewController {
         super.viewDidLoad()
         setup()
         setupUI()
+        setupConstraints()
         fetchRecipesList()
     }
     
@@ -56,6 +64,9 @@ class RecipesListViewController: UIViewController {
     private func setupUI() {
         title = "RECEIPES"
         view.addSubview(tableView)
+        view.addSubview(activityIndicator)
+        view.backgroundColor = .white
+        activityIndicator.startAnimating()
     }
     
     private func setup() {
@@ -66,6 +77,13 @@ class RecipesListViewController: UIViewController {
         viewController.interactor = interactor
         interactor.presenter = presenter
         presenter.viewController = viewController
+    }
+    
+    private func setupConstraints() {
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+        ])
     }
     
     private func fetchRecipesList() {
@@ -80,6 +98,10 @@ extension RecipesListViewController: RecipesListDisplayLogic {
         receipts = receipt
         DispatchQueue.main.async {
             self.tableView.reloadData()
+            UIView.animate(withDuration: 0.2) {
+                self.tableView.isHidden = false
+            }
+            self.activityIndicator.stopAnimating()
         }
     }
     
@@ -114,6 +136,10 @@ extension RecipesListViewController: UITableViewDelegate {
 
 extension RecipesListViewController: CustoHeaderViewDelegate {
     func didSelectItem(_ title: String) {
+        UIView.animate(withDuration: 0.2) {
+            self.tableView.isHidden = true
+        }
+        self.activityIndicator.startAnimating()
         interactor?.fetchFoods(request: RecipesModels.FetchReceipt.Request(typeOfMeal: title))
     }
 }
