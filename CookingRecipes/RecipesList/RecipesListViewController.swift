@@ -10,6 +10,7 @@ import UIKit
 protocol RecipesListDisplayLogic: AnyObject {
     func displayRecipesList(viewModel: RecipesModels.FetchReceipt.ViewModel)
     func displayRecipesListFailure(viewModel: RecipesModels.FetchReceipt.ViewModelFailure)
+    //func startLoadingState(viewModel: RecipesModels.FetchReceipt.ViewModel)
 }
 
 class RecipesListViewController: UIViewController {
@@ -66,7 +67,7 @@ class RecipesListViewController: UIViewController {
         view.addSubview(tableView)
         view.addSubview(activityIndicator)
         view.backgroundColor = .white
-        //activityIndicator.startAnimating()
+        activityIndicator.startAnimating()
     }
     
     private func setup() {
@@ -96,26 +97,20 @@ extension RecipesListViewController: RecipesListDisplayLogic {
     func displayRecipesList(viewModel: RecipesModels.FetchReceipt.ViewModel) {
         let receipt = viewModel.recipe
         receipts = receipt
-        DispatchQueue.main.async {
+        UIView.animate(withDuration: 0.1) {
             self.tableView.reloadData()
-            UIView.animate(withDuration: 0.1) {
-                self.tableView.isHidden = false
-                self.activityIndicator.stopAnimating()
-            }
+            self.tableView.isHidden = false
+            self.activityIndicator.stopAnimating()
         }
     }
-    
     
     func displayRecipesListFailure(viewModel: RecipesModels.FetchReceipt.ViewModelFailure) {
         let alertController = UIAlertController(title: viewModel.errorMessage, message: "", preferredStyle: .alert)
         let alertAction = UIAlertAction(title: "OK", style: .default)
         alertController.addAction(alertAction)
         view.backgroundColor = .red
-        DispatchQueue.main.async {
-            self.present(alertController, animated: true)
-        }
+        self.present(alertController, animated: true)
     }
-    
 }
 
 extension RecipesListViewController: UITableViewDataSource {
@@ -139,14 +134,11 @@ extension RecipesListViewController: UITableViewDelegate {
 
 extension RecipesListViewController: CustoHeaderViewDelegate {
     func didSelectItem(_ title: String) {
-        UIView.animate(withDuration: 0.2) {
-            self.tableView.visibleCells.forEach { cell in
-                if let cell = cell as? ReciepesTableViewCell {
-                    cell.isHidden = true
-                }
-            }
+        UIView.animate(withDuration: 0.1) {
+            self.receipts = []
+            self.tableView.reloadData()
+            self.activityIndicator.startAnimating()
         }
-        self.activityIndicator.startAnimating()
         interactor?.fetchFoods(request: RecipesModels.FetchReceipt.Request(typeOfMeal: title))
     }
 }

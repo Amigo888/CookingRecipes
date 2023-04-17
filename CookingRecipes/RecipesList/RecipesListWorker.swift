@@ -30,14 +30,16 @@ class ReceipeListWorker: ReceipeListDoingSomethingWorkerLogic {
                                       path: APIConstants.URLPaths.receipes.rawValue,
                                       queryItems: ["type" : "\(type)",
                                                    "number" : "20",
-                                                   "apiKey" : "a858a579a81c4457b0aaea9ae48f41b0"],
+                                                   "apiKey" : APIConstants.API_KEY],
                                       value: type)
         apiCaller.makeRequest(with: url, expecting: ReceiptListResponse.self, completion: { result in
-            switch result {
-            case .success(let receipt):
-                completion(.success(receipt.results))
-            case .failure(let failure):
-                completion(.failure(failure))
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let receipt):
+                    completion(.success(receipt.results))
+                case .failure(let failure):
+                    completion(.failure(failure))
+                }
             }
         })
     }
