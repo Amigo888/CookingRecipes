@@ -22,7 +22,7 @@ class RecipesListViewController: UIViewController {
     
     var interactor: ReceipeListBuisnessLogic?
     var headerView: CustomHeaderView?
-    var router: ReceipeListRouterLogic?
+    var router: (ReceipeListRouterLogic & ReceipeListDataPassing)?
     
     private lazy var tableView : UITableView = {
         let tableView = UITableView()
@@ -134,6 +134,8 @@ extension RecipesListViewController: UITableViewDelegate {
         Constants.rowHeight
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let receipesId = receipts[indexPath.row].id
+        router?.dataStoreId = receipesId
         router?.navigateToNextScreen()
     }
 }
