@@ -14,55 +14,78 @@ protocol RecipesListDetaildeDisplayLogic: AnyObject {
 class RecipesListDetailedViewController: UIViewController {
     
     var interactor: RecipesListDetailedInteractor?
+    var router: ReceipeListDetaildeRouter?
     
-    private lazy var imageView: UIImageView = {
-        let image = UIImageView()
-        image.image = UIImage(named: "pizza")
-        //image.contentMode = .scaleToFill
-        //image.clipsToBounds = true
-        image.translatesAutoresizingMaskIntoConstraints = false
-        return image
-    }()
-    
-    private lazy var textLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 18, weight: .medium)
-        label.numberOfLines = 0
-        label.textColor = .black
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(RecipesDetailTableViewCell.self, forCellReuseIdentifier: String(describing: RecipesDetailTableViewCell.self))
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView 
     }()
     
     public var id: Int = 0
     
-    private var summaryRecipes = [SummaryReceipe]()
+    private var summaryRecipes = [DetailedRecipe]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
+        setup()
         setupUI()
         setupConstraints()
         print(id)
     }
     
+    func setup() {
+        let viewController = self
+        let apiCaller = APICaller()
+        let interactor = RecipesListDetailedInteractor(worker: RecipesListDetailedWorker(apiCaller: apiCaller))
+        let presenter = RecipesListDetailedPresenter()
+        let router = ReceipeListDetaildeRouter()
+        viewController.interactor = interactor
+        viewController.router = router
+        interactor.presenter = presenter
+        presenter.viewController = viewController
+    }
+    
     func setupUI() {
         title = "RECIPE INSTRUCTIONS"
-        view.addSubview(imageView)
-        view.addSubview(textLabel)
+        view.addSubview(tableView)
     }
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            imageView.widthAnchor.constraint(equalToConstant: 300),
-            imageView.heightAnchor.constraint(equalToConstant: 300),
-            
-            
-            textLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            textLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            textLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
+}
+
+extension RecipesListDetailedViewController: RecipesListDetaildeDisplayLogic {
+    func displaySummaryList(viewModel: RecipesDetailedModels.FetchReceipt.ViewModel) {
+        <#code#>
+    }
+    
+    func displaySummaryListFailure(viewModel: RecipesDetailedModels.FetchReceipt.ViewModelFailure) {
+        <#code#>
+    }
+}
+
+extension RecipesListDetailedViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        <#code#>
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        <#code#>
+    }
+    
+    
+}
+
+extension RecipesListDetailedViewController: UITableViewDelegate {
+    
 }

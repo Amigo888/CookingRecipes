@@ -12,15 +12,15 @@ enum RecipesDetailedModels {
     enum FetchReceipt {
         
         struct Request {
-            let typeOfMeal: String
+            let id: Int
         }
         
         struct Response {
-            let receipe: Result<[SummaryReceipe], Error>
+            let receipeDetail: Result<[DetailedRecipe], Error>
         }
         
         struct ViewModel {
-            let recipe: [SummaryReceipe]
+            let recipeDetail: [DetailedRecipe]
         }
         
         struct ViewModelFailure {

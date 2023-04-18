@@ -7,6 +7,21 @@
 
 import Foundation
 
-class RecipesListDetailedWorker {
+protocol ReceipeListDetaildWorkerLogic {
+    func fetchReceiptDetails(id: Int, completion: @escaping (Result<[DetailedRecipe], Error>) -> Void)
+}
+
+class RecipesListDetailedWorker: ReceipeListDetaildWorkerLogic {
+    
+    let apiCaller: APICallerProtocol
+    
+    init(apiCaller: APICaller) {
+        self.apiCaller = apiCaller
+    }
+    
+    func fetchReceiptDetails(id: Int, completion: @escaping (Result<[DetailedRecipe], Error>) -> Void) {
+        //
+    }
+    
     
 }
