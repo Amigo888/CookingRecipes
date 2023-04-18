@@ -10,7 +10,7 @@ import UIKit
 protocol RecipesListDisplayLogic: AnyObject {
     func displayRecipesList(viewModel: RecipesModels.FetchReceipt.ViewModel)
     func displayRecipesListFailure(viewModel: RecipesModels.FetchReceipt.ViewModelFailure)
-    //func startLoadingState(viewModel: RecipesModels.FetchReceipt.ViewModel)
+    func startLoadingState(viewModel: RecipesModels.FetchReceipt.ViewModelLoading)
 }
 
 class RecipesListViewController: UIViewController {
@@ -98,9 +98,8 @@ extension RecipesListViewController: RecipesListDisplayLogic {
         let receipt = viewModel.recipe
         receipts = receipt
         UIView.animate(withDuration: 0.1) {
+            self.startLoadingState(viewModel: RecipesModels.FetchReceipt.ViewModelLoading(isLoading: false))
             self.tableView.reloadData()
-            self.tableView.isHidden = false
-            self.activityIndicator.stopAnimating()
         }
     }
     
@@ -110,6 +109,16 @@ extension RecipesListViewController: RecipesListDisplayLogic {
         alertController.addAction(alertAction)
         view.backgroundColor = .red
         self.present(alertController, animated: true)
+    }
+    
+    func startLoadingState(viewModel: RecipesModels.FetchReceipt.ViewModelLoading) {
+        if viewModel.isLoading {
+            receipts = []
+            activityIndicator.startAnimating()
+            
+        } else {
+            activityIndicator.stopAnimating()
+        }
     }
 }
 
@@ -135,9 +144,8 @@ extension RecipesListViewController: UITableViewDelegate {
 extension RecipesListViewController: CustoHeaderViewDelegate {
     func didSelectItem(_ title: String) {
         UIView.animate(withDuration: 0.1) {
-            self.receipts = []
+            self.startLoadingState(viewModel: RecipesModels.FetchReceipt.ViewModelLoading(isLoading: true))
             self.tableView.reloadData()
-            self.activityIndicator.startAnimating()
         }
         interactor?.fetchFoods(request: RecipesModels.FetchReceipt.Request(typeOfMeal: title))
     }
