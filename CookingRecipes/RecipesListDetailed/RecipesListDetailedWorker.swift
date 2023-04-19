@@ -20,7 +20,12 @@ class RecipesListDetailedWorker: ReceipeListDetaildWorkerLogic {
     }
     
     func fetchReceiptDetails(id: Int, completion: @escaping (Result<[DetailedRecipe], Error>) -> Void) {
-        //
+        let url = URLBuilderDetailed.buildURL(scheme: APIConstants.URLPaths.scheme.rawValue,
+                                              host: APIConstants.URLPaths.host.rawValue,
+                                              path: APIConstants.URLPaths.path.rawValue,
+                                              queryItems: ["includeNutrition" : "\(false)",
+                                                           "apiKey" : APIConstants.API_KEY],
+                                              id: id)
     }
     
     

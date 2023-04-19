@@ -34,6 +34,7 @@ class RecipesListDetailedViewController: UIViewController {
         setup()
         setupUI()
         setupConstraints()
+        fetchRecipesDetailed()
         print(id)
     }
     
@@ -61,6 +62,10 @@ class RecipesListDetailedViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
+    }
+    
+    func fetchRecipesDetailed() {
+        interactor?.fetchDetails(response: .init(id: id))
     }
 }
 
