@@ -26,7 +26,7 @@ class URLBuilderDetailed {
         var components = URLComponents()
         components.scheme = scheme
         components.host = host
-        components.path = "\(path)/\(id)"
+        components.path = "\(path)/\(id)/information"
         if let queryItems = queryItems {
                 components.queryItems = queryItems.map { URLQueryItem(name: $0, value: $1) }
             }

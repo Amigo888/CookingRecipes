@@ -19,6 +19,6 @@ struct APIConstants {
         case scheme = "https"
         case host = "api.spoonacular.com"
         case receipes = "/recipes/complexSearch"
-        case path = "/reipes"
+        case path = "/recipes"
     }
 }

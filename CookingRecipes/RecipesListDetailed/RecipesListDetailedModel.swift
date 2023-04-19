@@ -16,11 +16,11 @@ enum RecipesDetailedModels {
         }
         
         struct Response {
-            let receipeDetail: Result<[DetailedRecipe], Error>
+            let receipeDetail: Result<DetailedRecipe, Error>
         }
         
         struct ViewModel {
-            let recipeDetail: [DetailedRecipe]
+            let recipeDetail: DetailedRecipe
         }
         
         struct ViewModelFailure {
