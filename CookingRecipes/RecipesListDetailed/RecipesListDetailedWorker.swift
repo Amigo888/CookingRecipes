@@ -30,7 +30,6 @@ class RecipesListDetailedWorker: ReceipeListDetaildWorkerLogic {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let detailedInfo):
-                    print(detailedInfo.summary)
                     completion(.success(detailedInfo))
                 case .failure(let failure):
                     completion(.failure(failure))
