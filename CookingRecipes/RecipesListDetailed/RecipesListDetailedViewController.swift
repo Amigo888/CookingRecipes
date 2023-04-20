@@ -24,8 +24,14 @@ class RecipesListDetailedViewController: UIViewController {
         
     }
     
-    enum Constants: Int {
+    enum Constants: CGFloat {
         case numberOfRows = 6
+        case HeightImageView = 300
+        case HeightDishestype = 250
+        case HeightIngridient = 270
+        case HeightPairingText = 240
+        case HeightPairingMatches = 260
+        case HeightDefault
     }
     
     var interactor: RecipesListDetailedInteractor?
@@ -92,9 +98,7 @@ extension RecipesListDetailedViewController: RecipesListDetaildeDisplayLogic {
     func displaySummaryList(viewModel: RecipesDetailedModels.FetchReceipt.ViewModel) {
         let detailedRecipe = viewModel.recipeDetail
         summaryRecipes = detailedRecipe
-        UIView.animate(withDuration: 0.1) {
-            self.tableView.reloadData()
-        }
+        self.tableView.reloadData()
     }
     
     func displaySummaryListFailure(viewModel: RecipesDetailedModels.FetchReceipt.ViewModelFailure) {
@@ -108,43 +112,52 @@ extension RecipesListDetailedViewController: RecipesListDetaildeDisplayLogic {
 
 extension RecipesListDetailedViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10 //Constants.numberOfRows.rawValue
+        return  Int(Constants.numberOfRows.rawValue)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: MealTypesTableViewCell.self)) as? MealTypesTableViewCell else { return UITableViewCell() }
-        cell.textLabel?.text = "vcefrvfrds;nvjrsjnbdrgojsnbjortv"
+        cell.textLabel?.text = ""
         
         
-        guard let receipt = summaryRecipes else { return cell  }
+        guard let receipt = summaryRecipes else { return cell }
         
-        if indexPath.row == Rows.ImageView.rawValue  {
+        switch indexPath.row {
+        case Rows.ImageView.rawValue:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ImageViewTableViewCell.self)) as? ImageViewTableViewCell else { return UITableViewCell() }
             cell.configureReceiptCell(receiptDetailed: receipt)
             return cell
-        }
-        if indexPath.row == Rows.DishTypes.rawValue {
+        case Rows.DishTypes.rawValue:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: MealTypesTableViewCell.self)) as? MealTypesTableViewCell else { return UITableViewCell() }
                 return cell
-        }
-        if indexPath.row == Rows.Ingridients.rawValue {
+        case Rows.Ingridients.rawValue:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: IngridientsTableViewCell.self)) as? IngridientsTableViewCell else { return UITableViewCell() }
             return cell
-        }
-        if indexPath.row == Rows.PairingText.rawValue {
+        case Rows.PairingText.rawValue:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PairingTextTableViewCell.self)) as? PairingTextTableViewCell else { return UITableViewCell() }
             return cell
-        }
-        if indexPath.row == Rows.PairingMatch.rawValue {
+        case Rows.PairingMatch.rawValue:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PairingMatchTableViewCell.self)) as? PairingMatchTableViewCell else { return UITableViewCell() }
             return cell
+        default: return UITableViewCell()
         }
-        return cell
     }
 }
     
-    extension RecipesListDetailedViewController: UITableViewDelegate {
-        func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-            100
+extension RecipesListDetailedViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.row {
+        case Rows.ImageView.rawValue:
+            return Constants.HeightImageView.rawValue
+        case Rows.DishTypes.rawValue:
+            return Constants.HeightDishestype.rawValue
+        case Rows.Ingridients.rawValue:
+            return Constants.HeightIngridient.rawValue
+        case Rows.PairingText.rawValue:
+            return Constants.HeightPairingText.rawValue
+        case Rows.PairingMatch.rawValue:
+            return Constants.HeightPairingMatches.rawValue
+        default: return Constants.HeightDefault.rawValue
         }
     }
+}
