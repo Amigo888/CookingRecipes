@@ -18,7 +18,9 @@ struct APIConstants {
     enum URLPaths: String {
         case scheme = "https"
         case host = "api.spoonacular.com"
+        case hostPhoto = "spoonacular.com"
         case receipes = "/recipes/complexSearch"
         case path = "/recipes"
+        case pathPhoto = "/cdn/ingredients_250x250/"
     }
 }

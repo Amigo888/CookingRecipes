@@ -35,3 +35,12 @@ class URLBuilderDetailed {
     }
 }
 
+class URLBuilderPhoto {
+    static func buildURL(scheme: String, host: String, path: String, productName: String) -> URL? {
+        var components = URLComponents()
+        components.scheme = scheme
+        components.host = host
+        components.path = "\(path)\(productName)"
+        return components.url
+    }
+}

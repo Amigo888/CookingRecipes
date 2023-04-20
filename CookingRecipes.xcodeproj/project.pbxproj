@@ -27,6 +27,7 @@
 		5FB14C5529F0329D00C096D1 /* PairingTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB14C5429F0329D00C096D1 /* PairingTextTableViewCell.swift */; };
 		5FB14C5729F032CC00C096D1 /* PairingMatchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB14C5629F032CC00C096D1 /* PairingMatchTableViewCell.swift */; };
 		5FB14C5B29F15B8E00C096D1 /* MealTypeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB14C5A29F15B8E00C096D1 /* MealTypeCollectionViewCell.swift */; };
+		5FB14C5D29F1675000C096D1 /* IngridientCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB14C5C29F1675000C096D1 /* IngridientCollectionViewCell.swift */; };
 		5FBF4F1029E5918A00B9532A /* Receipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBF4F0F29E5918A00B9532A /* Receipt.swift */; };
 		5FBF4F1329E5AF6000B9532A /* ReciepesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBF4F1229E5AF6000B9532A /* ReciepesTableViewCell.swift */; };
 		5FBF4F1829E5FFDD00B9532A /* UIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBF4F1729E5FFDD00B9532A /* UIStackView.swift */; };
@@ -61,6 +62,7 @@
 		5FB14C5429F0329D00C096D1 /* PairingTextTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingTextTableViewCell.swift; sourceTree = "<group>"; };
 		5FB14C5629F032CC00C096D1 /* PairingMatchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingMatchTableViewCell.swift; sourceTree = "<group>"; };
 		5FB14C5A29F15B8E00C096D1 /* MealTypeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealTypeCollectionViewCell.swift; sourceTree = "<group>"; };
+		5FB14C5C29F1675000C096D1 /* IngridientCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngridientCollectionViewCell.swift; sourceTree = "<group>"; };
 		5FBF4F0F29E5918A00B9532A /* Receipt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Receipt.swift; sourceTree = "<group>"; };
 		5FBF4F1229E5AF6000B9532A /* ReciepesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReciepesTableViewCell.swift; sourceTree = "<group>"; };
 		5FBF4F1729E5FFDD00B9532A /* UIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackView.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				5FB14C5A29F15B8E00C096D1 /* MealTypeCollectionViewCell.swift */,
+				5FB14C5C29F1675000C096D1 /* IngridientCollectionViewCell.swift */,
 			);
 			path = CollectionViewCell;
 			sourceTree = "<group>";
@@ -326,6 +329,7 @@
 				5FD2633729E56D7100C18E90 /* RecipesListInteractor.swift in Sources */,
 				5FD2633F29E56E4F00C18E90 /* RecipesListModel.swift in Sources */,
 				5FD2633929E56D8700C18E90 /* RecipesListPresenter.swift in Sources */,
+				5FB14C5D29F1675000C096D1 /* IngridientCollectionViewCell.swift in Sources */,
 				5FBF4F1329E5AF6000B9532A /* ReciepesTableViewCell.swift in Sources */,
 				5F45E67A29E8082E00D151DE /* CustomHeaderView.swift in Sources */,
 				5FB14C4229ED948100C096D1 /* RecipesListDetailedWorker.swift in Sources */,

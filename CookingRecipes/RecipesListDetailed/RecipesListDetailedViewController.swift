@@ -30,7 +30,7 @@ class RecipesListDetailedViewController: UIViewController {
         case HeightImageView = 300
         case HeightDishestype = 50
         case HeightTitle = 60
-        case HeightIngridient = 270
+        case HeightIngridient = 280
         case HeightPairingText = 240
         case HeightPairingMatches = 260
         case HeightDefault
@@ -126,29 +126,37 @@ extension RecipesListDetailedViewController: UITableViewDataSource {
         guard let receipt = summaryRecipes else { return cell }
         
         switch indexPath.row {
+        
         case Rows.ImageView.rawValue:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ImageViewTableViewCell.self)) as? ImageViewTableViewCell else { return UITableViewCell() }
             cell.configureReceiptCell(receiptDetailed: receipt)
             return cell
+        
         case Rows.DishTypes.rawValue:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: MealTypesTableViewCell.self)) as? MealTypesTableViewCell else { return UITableViewCell() }
             cell.configure(receipeDetailed: receipt)
                 return cell
+        
         case Rows.Title.rawValue:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self)) else { return UITableViewCell()
             }
             cell.textLabel?.text = receipt.title
             cell.textLabel?.numberOfLines = 0
             return cell
+        
         case Rows.Ingridients.rawValue:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: IngridientsTableViewCell.self)) as? IngridientsTableViewCell else { return UITableViewCell() }
+            cell.configure(receipeDetailed: receipt)
             return cell
+        
         case Rows.PairingText.rawValue:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PairingTextTableViewCell.self)) as? PairingTextTableViewCell else { return UITableViewCell() }
             return cell
+        
         case Rows.PairingMatch.rawValue:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PairingMatchTableViewCell.self)) as? PairingMatchTableViewCell else { return UITableViewCell() }
             return cell
+        
         default: return UITableViewCell()
         }
     }
