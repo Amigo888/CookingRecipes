@@ -14,6 +14,7 @@ import Foundation
         let title: String
         let image: String?
         let servings: Int
+        let dishTypes: [String]
         let readyInMinutes: Int
         let summary: String
         let instructions: String?

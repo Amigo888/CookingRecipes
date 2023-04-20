@@ -17,17 +17,19 @@ class RecipesListDetailedViewController: UIViewController {
     enum Rows: Int {
         case ImageView = 0
         case DishTypes = 1
-        case Ingridients = 2
-        case DiffirentFields = 3
-        case PairingText = 4
-        case PairingMatch = 5
+        case Title = 2
+        case Ingridients = 3
+        case DiffirentFields = 4
+        case PairingText = 5
+        case PairingMatch = 6
         
     }
     
     enum Constants: CGFloat {
-        case numberOfRows = 6
+        case numberOfRows = 7
         case HeightImageView = 300
-        case HeightDishestype = 250
+        case HeightDishestype = 50
+        case HeightTitle = 60
         case HeightIngridient = 270
         case HeightPairingText = 240
         case HeightPairingMatches = 260
@@ -43,6 +45,7 @@ class RecipesListDetailedViewController: UIViewController {
         tableView.delegate = self
         tableView.register(ImageViewTableViewCell.self, forCellReuseIdentifier: String(describing: ImageViewTableViewCell.self))
         tableView.register(MealTypesTableViewCell.self, forCellReuseIdentifier: String(describing: MealTypesTableViewCell.self))
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: String(describing: UITableViewCell.self))
         tableView.register(IngridientsTableViewCell.self, forCellReuseIdentifier: String(describing: IngridientsTableViewCell.self))
         tableView.register(PairingTextTableViewCell.self, forCellReuseIdentifier: String(describing: PairingTextTableViewCell.self))
         tableView.register(PairingTextTableViewCell.self, forCellReuseIdentifier: String(describing: PairingMatchTableViewCell.self))
@@ -129,7 +132,14 @@ extension RecipesListDetailedViewController: UITableViewDataSource {
             return cell
         case Rows.DishTypes.rawValue:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: MealTypesTableViewCell.self)) as? MealTypesTableViewCell else { return UITableViewCell() }
+            cell.configure(receipeDetailed: receipt)
                 return cell
+        case Rows.Title.rawValue:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self)) else { return UITableViewCell()
+            }
+            cell.textLabel?.text = receipt.title
+            cell.textLabel?.numberOfLines = 0
+            return cell
         case Rows.Ingridients.rawValue:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: IngridientsTableViewCell.self)) as? IngridientsTableViewCell else { return UITableViewCell() }
             return cell
@@ -151,6 +161,8 @@ extension RecipesListDetailedViewController: UITableViewDelegate {
             return Constants.HeightImageView.rawValue
         case Rows.DishTypes.rawValue:
             return Constants.HeightDishestype.rawValue
+        case Rows.Title.rawValue:
+            return Constants.HeightTitle.rawValue
         case Rows.Ingridients.rawValue:
             return Constants.HeightIngridient.rawValue
         case Rows.PairingText.rawValue:
