@@ -30,7 +30,6 @@ class DifferentValuesTableViewCell: UITableViewCell {
     private lazy var collectionViewFlowLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.estimatedItemSize = .zero
-        //layout.scrollDirection = .vertical
         layout.itemSize = CGSize(width: Constants.itemWidth, height: Constants.itemHeight)
         layout.minimumLineSpacing = Constants.minimunLineSpacing
         layout.sectionInset = UIEdgeInsets(top: Constants.topBottomInsets,

@@ -32,7 +32,7 @@ class RecipesListDetailedViewController: UIViewController {
         static let HeightTitle: CGFloat = 60
         static let HeightIngridient: CGFloat = 280
         static let HeightDifferentValues: CGFloat = 130
-        static let HeightPairingText: CGFloat = 240
+        static let HeightPairingText: CGFloat = 320
         static let HeightPairingMatches: CGFloat = 260
         static let HeightDefault: CGFloat = 0
     }
@@ -159,6 +159,7 @@ extension RecipesListDetailedViewController: UITableViewDataSource {
         
         case Rows.PairingText:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PairingTextTableViewCell.self)) as? PairingTextTableViewCell else { return UITableViewCell() }
+            cell.configure(receipeDetailed: receipt)
             return cell
         
         case Rows.PairingMatch:
