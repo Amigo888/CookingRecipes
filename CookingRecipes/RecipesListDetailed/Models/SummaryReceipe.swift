@@ -24,7 +24,7 @@ struct DetailedRecipe: Decodable {
     let aggregateLikes: Int
     let analyzedInstructions: [Instruction]?
     let extendedIngredients: [Ingredient]?
-    let winePairing: WinePairing
+    let winePairing: WinePairing?
 }
 
 struct Instruction: Decodable {
@@ -64,6 +64,15 @@ struct Metric: Decodable {
 
 struct WinePairing: Decodable {
     let pairingText: String
+    let productMatches: [PairingMatches]?
+}
+
+struct PairingMatches: Decodable {
+    let id: Int
+    let title: String
+    let description: String
+    let price: String?
+    let imageUrl: String?
 }
 
 

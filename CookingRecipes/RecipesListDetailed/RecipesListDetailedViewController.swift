@@ -33,7 +33,7 @@ class RecipesListDetailedViewController: UIViewController {
         static let HeightIngridient: CGFloat = 280
         static let HeightDifferentValues: CGFloat = 130
         static let HeightPairingText: CGFloat = 320
-        static let HeightPairingMatches: CGFloat = 260
+        static let HeightPairingMatches: CGFloat = 240
         static let HeightDefault: CGFloat = 0
     }
     
@@ -44,13 +44,14 @@ class RecipesListDetailedViewController: UIViewController {
         let tableView = UITableView()
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.separatorStyle = .none
         tableView.register(ImageViewTableViewCell.self, forCellReuseIdentifier: String(describing: ImageViewTableViewCell.self))
         tableView.register(MealTypesTableViewCell.self, forCellReuseIdentifier: String(describing: MealTypesTableViewCell.self))
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: String(describing: UITableViewCell.self))
         tableView.register(IngridientsTableViewCell.self, forCellReuseIdentifier: String(describing: IngridientsTableViewCell.self))
         tableView.register(DifferentValuesTableViewCell.self, forCellReuseIdentifier: String(describing: DifferentValuesTableViewCell.self))
         tableView.register(PairingTextTableViewCell.self, forCellReuseIdentifier: String(describing: PairingTextTableViewCell.self))
-        tableView.register(PairingTextTableViewCell.self, forCellReuseIdentifier: String(describing: PairingMatchTableViewCell.self))
+        tableView.register(PairingMatchTableViewCell.self, forCellReuseIdentifier: String(describing: PairingMatchTableViewCell.self))
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -117,7 +118,7 @@ extension RecipesListDetailedViewController: RecipesListDetaildeDisplayLogic {
 
 extension RecipesListDetailedViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return  Int(Constants.numberOfRows)
+        return  Constants.numberOfRows
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -164,6 +165,7 @@ extension RecipesListDetailedViewController: UITableViewDataSource {
         
         case Rows.PairingMatch:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PairingMatchTableViewCell.self)) as? PairingMatchTableViewCell else { return UITableViewCell() }
+            cell.configure(receipeDetailed: receipt)
             return cell
         
         default: return UITableViewCell()
@@ -185,7 +187,7 @@ extension RecipesListDetailedViewController: UITableViewDelegate {
         case Rows.DiffirentFields:
             return Constants.HeightDifferentValues
         case Rows.PairingText:
-            return Constants.HeightPairingText
+            return UITableView.automaticDimension
         case Rows.PairingMatch:
             return Constants.HeightPairingMatches
         default: return Constants.HeightDefault

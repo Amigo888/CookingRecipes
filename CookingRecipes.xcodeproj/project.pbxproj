@@ -30,6 +30,7 @@
 		5FB14C5D29F1675000C096D1 /* IngridientCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB14C5C29F1675000C096D1 /* IngridientCollectionViewCell.swift */; };
 		5FB14C5F29F198B200C096D1 /* DifferentValuesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB14C5E29F198B200C096D1 /* DifferentValuesTableViewCell.swift */; };
 		5FB14C6129F19E3400C096D1 /* DifferentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB14C6029F19E3400C096D1 /* DifferentCollectionViewCell.swift */; };
+		5FB14C6329F29CA400C096D1 /* PairingMatchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB14C6229F29CA400C096D1 /* PairingMatchCollectionViewCell.swift */; };
 		5FBF4F1029E5918A00B9532A /* Receipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBF4F0F29E5918A00B9532A /* Receipt.swift */; };
 		5FBF4F1329E5AF6000B9532A /* ReciepesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBF4F1229E5AF6000B9532A /* ReciepesTableViewCell.swift */; };
 		5FBF4F1829E5FFDD00B9532A /* UIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBF4F1729E5FFDD00B9532A /* UIStackView.swift */; };
@@ -67,6 +68,7 @@
 		5FB14C5C29F1675000C096D1 /* IngridientCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngridientCollectionViewCell.swift; sourceTree = "<group>"; };
 		5FB14C5E29F198B200C096D1 /* DifferentValuesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifferentValuesTableViewCell.swift; sourceTree = "<group>"; };
 		5FB14C6029F19E3400C096D1 /* DifferentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifferentCollectionViewCell.swift; sourceTree = "<group>"; };
+		5FB14C6229F29CA400C096D1 /* PairingMatchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingMatchCollectionViewCell.swift; sourceTree = "<group>"; };
 		5FBF4F0F29E5918A00B9532A /* Receipt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Receipt.swift; sourceTree = "<group>"; };
 		5FBF4F1229E5AF6000B9532A /* ReciepesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReciepesTableViewCell.swift; sourceTree = "<group>"; };
 		5FBF4F1729E5FFDD00B9532A /* UIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackView.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 				5FB14C5A29F15B8E00C096D1 /* MealTypeCollectionViewCell.swift */,
 				5FB14C5C29F1675000C096D1 /* IngridientCollectionViewCell.swift */,
 				5FB14C6029F19E3400C096D1 /* DifferentCollectionViewCell.swift */,
+				5FB14C6229F29CA400C096D1 /* PairingMatchCollectionViewCell.swift */,
 			);
 			path = CollectionViewCell;
 			sourceTree = "<group>";
@@ -357,6 +360,7 @@
 				5FD2632229E5602100C18E90 /* AppDelegate.swift in Sources */,
 				5FD2633D29E56E0C00C18E90 /* RecipesListWorker.swift in Sources */,
 				5FD2632429E5602100C18E90 /* SceneDelegate.swift in Sources */,
+				5FB14C6329F29CA400C096D1 /* PairingMatchCollectionViewCell.swift in Sources */,
 				5F45E68729E8AE0600D151DE /* APICaller.swift in Sources */,
 				5FB14C3E29ED945D00C096D1 /* RecipesListDetailedPresenter.swift in Sources */,
 				5FBF4F1829E5FFDD00B9532A /* UIStackView.swift in Sources */,

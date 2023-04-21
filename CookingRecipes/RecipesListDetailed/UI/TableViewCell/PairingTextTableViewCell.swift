@@ -49,7 +49,8 @@ class PairingTextTableViewCell: UITableViewCell {
     }
     
     func configure(receipeDetailed: DetailedRecipe) {
-        label.text = receipeDetailed.winePairing.pairingText
+        let text = receipeDetailed.winePairing?.pairingText.isEmpty ?? false ? "Enjoy you food" : receipeDetailed.winePairing?.pairingText
+        label.text = text
     }
     
 }

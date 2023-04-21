@@ -10,7 +10,7 @@ import UIKit
 class IngridientsTableViewCell: UITableViewCell {
     
     enum Constants {
-        static let minimunLineSpacing: CGFloat = 20
+        static let minimunLineSpacing: CGFloat = 10
         static let leftRightInsets: CGFloat = 10
         static let topBottomInsets: CGFloat = 10
         static let itemWidth = 160
