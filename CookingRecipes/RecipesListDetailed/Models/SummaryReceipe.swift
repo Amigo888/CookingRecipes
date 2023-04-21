@@ -18,6 +18,10 @@ struct DetailedRecipe: Decodable {
     let readyInMinutes: Int
     let summary: String
     let instructions: String?
+    let healthScore: Int
+    let vegan: Bool
+    let glutenFree: Bool
+    let aggregateLikes: Int
     let analyzedInstructions: [Instruction]?
     let extendedIngredients: [Ingredient]?
 }

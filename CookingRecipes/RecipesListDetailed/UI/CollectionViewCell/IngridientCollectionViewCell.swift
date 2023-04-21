@@ -10,8 +10,8 @@ import SDWebImage
 
 class IngridientCollectionViewCell: UICollectionViewCell {
     
-    enum Constants: CGFloat {
-        case basicConstraint = 8
+    enum Constants {
+        static let basicConstraint: CGFloat = 8
     }
     
     private lazy var ingridientImageView : UIImageView = {
@@ -62,7 +62,7 @@ class IngridientCollectionViewCell: UICollectionViewCell {
             
             titleLabel.leadingAnchor.constraint(equalTo: ingridientImageView.leadingAnchor),
             titleLabel.trailingAnchor.constraint(equalTo: ingridientImageView.trailingAnchor),
-            titleLabel.bottomAnchor.constraint(equalTo: measureLabel.topAnchor, constant: -Constants.basicConstraint.rawValue),
+            titleLabel.bottomAnchor.constraint(equalTo: measureLabel.topAnchor, constant: -Constants.basicConstraint),
             
             measureLabel.bottomAnchor.constraint(equalTo: ingridientImageView.bottomAnchor),
             measureLabel.leadingAnchor.constraint(equalTo: ingridientImageView.leadingAnchor),

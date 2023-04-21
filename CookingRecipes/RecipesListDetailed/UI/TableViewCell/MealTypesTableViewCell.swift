@@ -12,7 +12,7 @@ class MealTypesTableViewCell: UITableViewCell {
     enum Constants {
         static let minimunLineSpacing: CGFloat = 10
         static let leftRightInsets: CGFloat = 10
-        static let topBottomInsets: CGFloat = 0
+        static let topBottomInsets: CGFloat = 10
         static let itemWidth = 120
         static let itemHeight = 30
     }

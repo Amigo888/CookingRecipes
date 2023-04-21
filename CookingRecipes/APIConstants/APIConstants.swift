@@ -13,7 +13,7 @@ struct APIConstants {
                             "soup","beverage","sauce","marinade",
                             "fingerfood","snack","drink"]
     
-    static let API_KEY = "66152d306ad04f3ca4c6cd4240c32ab8"
+    static let API_KEY = "a858a579a81c4457b0aaea9ae48f41b0"
 
     enum URLPaths: String {
         case scheme = "https"
