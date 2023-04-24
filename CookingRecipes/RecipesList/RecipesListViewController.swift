@@ -15,9 +15,10 @@ protocol RecipesListDisplayLogic: AnyObject {
 class RecipesListViewController: UIViewController {
     
     enum Constants {
-        static let rowHeight: CGFloat = 100
+        static let rowHeight: CGFloat = 130
         static let headerXY: CGFloat = 0
         static let headerHeight: CGFloat = 50
+        static let numberOfRows: Int = 1
     }
     
     var interactor: ReceipeListBuisnessLogic?
@@ -25,7 +26,7 @@ class RecipesListViewController: UIViewController {
     var router: (ReceipeListRouterLogic & ReceipeListDataPassing)?
     
     private lazy var tableView : UITableView = {
-        let tableView = UITableView()
+        let tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.dataSource = self
         tableView.delegate = self
         headerView = CustomHeaderView(frame: CGRect(x: Constants.headerXY,
@@ -48,7 +49,6 @@ class RecipesListViewController: UIViewController {
     
     private var receipts: [Receipt] = []
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -61,12 +61,10 @@ class RecipesListViewController: UIViewController {
         tableView.frame = view.bounds
     }
     
-    
     private func setupUI() {
         title = "RECEIPES"
         view.addSubview(tableView)
         view.addSubview(activityIndicator)
-        view.backgroundColor = .white
         activityIndicator.startAnimating()
     }
     
@@ -111,19 +109,24 @@ extension RecipesListViewController: RecipesListDisplayLogic {
         let alertController = UIAlertController(title: viewModel.errorMessage, message: "", preferredStyle: .alert)
         let alertAction = UIAlertAction(title: "OK", style: .default)
         alertController.addAction(alertAction)
-        view.backgroundColor = .red
         self.present(alertController, animated: true)
     }
 }
 
 extension RecipesListViewController: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        receipts.count
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return receipts.count
+        return Constants.numberOfRows
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ReciepesTableViewCell.self), for: indexPath) as? ReciepesTableViewCell else { return UITableViewCell() }
-        let receipt = receipts[indexPath.row]
+        let receipt = receipts[indexPath.section]
+        cell.backgroundColor = .white
         cell.configureReceiptCell(receipt: receipt)
         return cell
     }
@@ -133,8 +136,13 @@ extension RecipesListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         Constants.rowHeight
     }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 10.0
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let receipesId = receipts[indexPath.row].id
+        let receipesId = receipts[indexPath.section].id
         router?.dataStoreId = receipesId
         router?.navigateToNextScreen()
     }

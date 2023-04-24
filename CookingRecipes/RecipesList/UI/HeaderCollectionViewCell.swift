@@ -11,14 +11,14 @@ class HeaderCollectionViewCell: UICollectionViewCell {
     
     private lazy var label : UILabel = {
         let label = UILabel()
-        label.layer.cornerRadius = 10
-        label.backgroundColor = .white
-        label.layer.borderColor = UIColor.black.cgColor
-        label.layer.borderWidth = 2
         label.textAlignment = .center
+        label.layer.cornerRadius = 10
+        label.layer.borderWidth =  1
+        label.layer.borderColor = UIColor.black.cgColor
         label.font = .systemFont(ofSize: 18, weight: .medium)
-        label.textColor = .black
-        label.isEnabled = false
+        label.textColor = .white
+        label.backgroundColor = .black
+        label.isEnabled = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -34,7 +34,7 @@ class HeaderCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupUI() {
-        addSubview(label)
+        contentView.addSubview(label)
     }
     
     private func setupConstraints() {
