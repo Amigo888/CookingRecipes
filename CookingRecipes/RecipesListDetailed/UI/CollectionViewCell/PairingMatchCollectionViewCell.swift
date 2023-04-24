@@ -40,19 +40,19 @@ class PairingMatchCollectionViewCell: UICollectionViewCell {
     
     private func setupViews() {
         contentView.addSubview(ingridientImageView)
-        ingridientImageView.addSubview(titleLabel)
+        contentView.addSubview(titleLabel)
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             ingridientImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            ingridientImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            ingridientImageView.bottomAnchor.constraint(equalTo: titleLabel.topAnchor, constant: -Constants.basicConstraint),
             ingridientImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             ingridientImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             
-            titleLabel.leadingAnchor.constraint(equalTo: ingridientImageView.leadingAnchor),
-            titleLabel.trailingAnchor.constraint(equalTo: ingridientImageView.trailingAnchor),
-            titleLabel.bottomAnchor.constraint(equalTo: ingridientImageView.bottomAnchor, constant: -Constants.basicConstraint),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constants.basicConstraint),
         ])
     }
     

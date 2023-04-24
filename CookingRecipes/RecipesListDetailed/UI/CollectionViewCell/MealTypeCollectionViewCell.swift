@@ -15,8 +15,8 @@ class MealTypeCollectionViewCell: UICollectionViewCell {
         label.backgroundColor = .white
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 19, weight: .medium)
-        label.textColor = .red
-        label.isEnabled = false
+        label.textColor = .black
+        label.isEnabled = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

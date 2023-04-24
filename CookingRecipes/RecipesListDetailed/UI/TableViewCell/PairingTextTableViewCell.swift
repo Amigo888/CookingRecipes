@@ -20,7 +20,7 @@ class PairingTextTableViewCell: UITableViewCell {
         label.numberOfLines = 0
         label.font = .systemFont(ofSize: 18, weight: .medium)
         label.textColor = .black
-        label.isEnabled = false
+        label.isEnabled = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
