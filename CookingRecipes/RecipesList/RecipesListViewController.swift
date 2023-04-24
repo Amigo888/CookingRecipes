@@ -10,6 +10,7 @@ import UIKit
 protocol RecipesListDisplayLogic: AnyObject {
     func displayRecipesList(viewModel: RecipesModels.FetchReceipt.ViewModel)
     func displayRecipesListFailure(viewModel: RecipesModels.FetchReceipt.ViewModelFailure)
+    func startLoadingState(viewModel: RecipesModels.FetchReceipt.ViewModelLoading)
 }
 
 class RecipesListViewController: UIViewController {
@@ -38,6 +39,13 @@ class RecipesListViewController: UIViewController {
         return tableView
     }()
     
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .medium)
+        indicator.color = .darkGray
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        return indicator
+    }()
+    
     private var receipts: [Receipt] = []
     
     
@@ -45,6 +53,7 @@ class RecipesListViewController: UIViewController {
         super.viewDidLoad()
         setup()
         setupUI()
+        setupConstraints()
         fetchRecipesList()
     }
     
@@ -56,6 +65,9 @@ class RecipesListViewController: UIViewController {
     private func setupUI() {
         title = "RECEIPES"
         view.addSubview(tableView)
+        view.addSubview(activityIndicator)
+        view.backgroundColor = .white
+        activityIndicator.startAnimating()
     }
     
     private func setup() {
@@ -68,6 +80,13 @@ class RecipesListViewController: UIViewController {
         presenter.viewController = viewController
     }
     
+    private func setupConstraints() {
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+        ])
+    }
+    
     private func fetchRecipesList() {
         interactor?.fetchFoods(request: .init(typeOfMeal: "main course"))
     }
@@ -78,7 +97,8 @@ extension RecipesListViewController: RecipesListDisplayLogic {
     func displayRecipesList(viewModel: RecipesModels.FetchReceipt.ViewModel) {
         let receipt = viewModel.recipe
         receipts = receipt
-        DispatchQueue.main.async {
+        UIView.animate(withDuration: 0.1) {
+            self.startLoadingState(viewModel: RecipesModels.FetchReceipt.ViewModelLoading(isLoading: false))
             self.tableView.reloadData()
         }
     }
@@ -91,6 +111,15 @@ extension RecipesListViewController: RecipesListDisplayLogic {
         self.present(alertController, animated: true)
     }
     
+    func startLoadingState(viewModel: RecipesModels.FetchReceipt.ViewModelLoading) {
+        if viewModel.isLoading {
+            receipts = []
+            activityIndicator.startAnimating()
+            
+        } else {
+            activityIndicator.stopAnimating()
+        }
+    }
 }
 
 extension RecipesListViewController: UITableViewDataSource {
@@ -114,6 +143,10 @@ extension RecipesListViewController: UITableViewDelegate {
 
 extension RecipesListViewController: CustoHeaderViewDelegate {
     func didSelectItem(_ title: String) {
+        UIView.animate(withDuration: 0.1) {
+            self.startLoadingState(viewModel: RecipesModels.FetchReceipt.ViewModelLoading(isLoading: true))
+            self.tableView.reloadData()
+        }
         interactor?.fetchFoods(request: RecipesModels.FetchReceipt.Request(typeOfMeal: title))
     }
 }
