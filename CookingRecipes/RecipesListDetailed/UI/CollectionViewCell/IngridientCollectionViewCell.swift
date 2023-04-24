@@ -74,10 +74,9 @@ class IngridientCollectionViewCell: UICollectionViewCell {
     
     func configure(ingridient: Ingredient) {
         guard let image = ingridient.image else { return }
-        let url = URLBuilderPhoto.buildURL(scheme: APIConstants.URLPaths.scheme.rawValue,
-                                           host: APIConstants.URLPaths.hostPhoto.rawValue,
-                                           path: APIConstants.URLPaths.pathPhoto.rawValue,
-                                           productName: image)
+        let url = URLBuilder.buildURL(baseURL: APIConstants.URLDetail.baseURLPhoto,
+                                      pathComponents: [APIConstants.URLDetail.pathComponentsPhoto, image],
+                                      queryParameters: APIConstants.URLDetail.emptyQueryParameters)
         guard let url = url else { return }
         ingridientImageView.sd_setImage(with: url)
         

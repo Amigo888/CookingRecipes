@@ -8,39 +8,15 @@
 import Foundation
 
 class URLBuilder {
-    static func buildURL(scheme: String, host: String, path: String, queryItems: [String: String]?, value: String) -> URL? {
-        var components = URLComponents()
-        components.scheme = scheme
-        components.host = host
-        components.path = path
-        if let queryItems = queryItems {
-                components.queryItems = queryItems.map { URLQueryItem(name: $0, value: $1) }
+    static func buildURL(baseURL: URL, pathComponents: [String], queryParameters: [String: String]?) -> URL? {
+        var components = URLComponents(url: baseURL, resolvingAgainstBaseURL: true)
+        let path = pathComponents.joined(separator: "/")
+        components?.path = "/" + path
+        if let queryItems = queryParameters {
+            components?.queryItems = queryItems.map { URLQueryItem(name: $0, value: $1) }
             }
-        
-        return components.url
+        return components?.url
     }
 }
 
-class URLBuilderDetailed {
-    static func buildURL(scheme: String, host: String, path: String, queryItems: [String: String]?, id: Int) -> URL? {
-        var components = URLComponents()
-        components.scheme = scheme
-        components.host = host
-        components.path = "\(path)/\(id)/information"
-        if let queryItems = queryItems {
-                components.queryItems = queryItems.map { URLQueryItem(name: $0, value: $1) }
-            }
-        
-        return components.url
-    }
-}
 
-class URLBuilderPhoto {
-    static func buildURL(scheme: String, host: String, path: String, productName: String) -> URL? {
-        var components = URLComponents()
-        components.scheme = scheme
-        components.host = host
-        components.path = "\(path)\(productName)"
-        return components.url
-    }
-}
