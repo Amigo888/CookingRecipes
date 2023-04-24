@@ -26,5 +26,8 @@ enum RecipesModels {
         struct ViewModelFailure {
             let errorMessage: String
         }
+        struct ViewModelLoading {
+            var isLoading: Bool
+        }
     }
 }
