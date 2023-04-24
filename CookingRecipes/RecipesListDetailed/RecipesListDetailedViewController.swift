@@ -122,7 +122,7 @@ extension RecipesListDetailedViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: MealTypesTableViewCell.self)) as? MealTypesTableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self))  else { return UITableViewCell() }
         cell.textLabel?.text = ""
         
         
@@ -143,7 +143,8 @@ extension RecipesListDetailedViewController: UITableViewDataSource {
         case Rows.Title:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self)) else { return UITableViewCell()
             }
-            cell.textLabel?.text = receipt.title
+            cell.textLabel?.text = receipt.title.capitalized
+            cell.textLabel?.font = .systemFont(ofSize: 20, weight: .bold)
             cell.textLabel?.numberOfLines = 0
             return cell
         
