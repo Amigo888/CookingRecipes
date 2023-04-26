@@ -7,20 +7,6 @@
 
 import Foundation
 
-class URLBuilder {
-    static func buildURL(scheme: String, host: String, path: String, queryItems: [String: String]?, value: String) -> URL? {
-        var components = URLComponents()
-        components.scheme = scheme
-        components.host = host
-        components.path = path
-        if let queryItems = queryItems {
-                components.queryItems = queryItems.map { URLQueryItem(name: $0, value: $1) }
-            }
-//        components.queryItems?[0].value = value
-        return components.url
-    }
-}
-
 enum CustomError: Error {
     case invalidURL
     case invalidData

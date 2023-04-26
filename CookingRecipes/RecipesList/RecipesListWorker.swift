@@ -25,13 +25,11 @@ class ReceipeListWorker: ReceipeListDoingSomethingWorkerLogic {
     }
     
     func fetchReceipt(type: String, completion: @escaping (Result<[Receipt], Error>) -> Void) {
-        let url = URLBuilder.buildURL(scheme: APIConstants.URLPaths.scheme.rawValue,
-                                      host: APIConstants.URLPaths.host.rawValue,
-                                      path: APIConstants.URLPaths.receipes.rawValue,
-                                      queryItems: ["type" : "\(type)",
-                                                   "number" : "20",
-                                                   "apiKey" : APIConstants.API_KEY],
-                                      value: type)
+        let url = URLBuilder.buildURL(baseURL: APIConstants.URLDetail.baseURL,
+                                      pathComponents: APIConstants.URLDetail.pathComponentsList,
+                                      queryParameters: ["type" : "\(type)",
+                                                        "number" : "20",
+                                                        "apiKey" : APIConstants.API_KEY])
         apiCaller.makeRequest(with: url, expecting: ReceiptListResponse.self, completion: { result in
             DispatchQueue.main.async {
                 switch result {

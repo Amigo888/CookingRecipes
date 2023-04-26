@@ -23,6 +23,7 @@ class RecipesListViewController: UIViewController {
     
     var interactor: ReceipeListBuisnessLogic?
     var headerView: CustomHeaderView?
+    var router: (ReceipeListRouterLogic & ReceipeListDataPassing)?
     
     private lazy var tableView : UITableView = {
         let tableView = UITableView()
@@ -75,9 +76,12 @@ class RecipesListViewController: UIViewController {
         let apiCaller = APICaller()
         let interactor = ReceipeListInteractor(worker: ReceipeListWorker(apiCaller: apiCaller))
         let presenter = ReceipeListPresenter()
+        let router = ReceipeListRouter()
+        viewController.router = router
         viewController.interactor = interactor
         interactor.presenter = presenter
         presenter.viewController = viewController
+        router.viewController = viewController
     }
     
     private func setupConstraints() {
@@ -138,6 +142,11 @@ extension RecipesListViewController: UITableViewDataSource {
 extension RecipesListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         Constants.rowHeight
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let receipesId = receipts[indexPath.row].id
+        router?.dataStoreId = receipesId
+        router?.navigateToNextScreen()
     }
 }
 
