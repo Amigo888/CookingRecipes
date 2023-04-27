@@ -49,24 +49,24 @@ class IngridientCollectionViewCell: UICollectionViewCell {
     
     private func setupViews() {
         contentView.addSubview(ingridientImageView)
-        ingridientImageView.addSubview(titleLabel)
-        ingridientImageView.addSubview(measureLabel)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(measureLabel)
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             ingridientImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            ingridientImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             ingridientImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             ingridientImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            ingridientImageView.bottomAnchor.constraint(equalTo: titleLabel.topAnchor, constant: -Constants.basicConstraint), 
             
-            titleLabel.leadingAnchor.constraint(equalTo: ingridientImageView.leadingAnchor),
-            titleLabel.trailingAnchor.constraint(equalTo: ingridientImageView.trailingAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             titleLabel.bottomAnchor.constraint(equalTo: measureLabel.topAnchor, constant: -Constants.basicConstraint),
             
-            measureLabel.bottomAnchor.constraint(equalTo: ingridientImageView.bottomAnchor),
-            measureLabel.leadingAnchor.constraint(equalTo: ingridientImageView.leadingAnchor),
-            measureLabel.trailingAnchor.constraint(equalTo: ingridientImageView.trailingAnchor),
+            measureLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            measureLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            measureLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             
             
         ])

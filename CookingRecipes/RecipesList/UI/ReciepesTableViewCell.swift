@@ -11,8 +11,8 @@ import SDWebImage
 class ReciepesTableViewCell: UITableViewCell {
     
     enum Constants {
-        static let imageViewHeight: CGFloat = 70
-        static let imageViewWidth: CGFloat = 90
+        static let imageViewHeight: CGFloat = 100
+        static let imageViewWidth: CGFloat = 120
         static let basicConstraint: CGFloat = 16
         static let labelTopBottom: CGFloat = 5
     }
@@ -30,7 +30,7 @@ class ReciepesTableViewCell: UITableViewCell {
     private lazy var receiptImageView : UIImageView = {
         let image = UIImageView()
         image.clipsToBounds = true
-        image.contentMode = .scaleAspectFit
+        image.contentMode = .scaleAspectFill
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()

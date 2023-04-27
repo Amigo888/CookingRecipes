@@ -14,11 +14,11 @@ class DifferentCollectionViewCell: UICollectionViewCell {
         label.layer.cornerRadius = 10
         label.backgroundColor = .white
         label.layer.borderColor = UIColor.black.cgColor
-        label.layer.borderWidth = 2
+        label.layer.borderWidth = 1
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 18, weight: .medium)
         label.textColor = .black
-        label.isEnabled = false
+        label.isEnabled = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

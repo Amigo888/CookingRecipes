@@ -11,14 +11,12 @@ class MealTypeCollectionViewCell: UICollectionViewCell {
     
     private lazy var label : UILabel = {
         let label = UILabel()
-        label.layer.cornerRadius = 10
+        label.layer.cornerRadius = 15
         label.backgroundColor = .white
-        label.layer.borderColor = UIColor.black.cgColor
-        label.layer.borderWidth = 2
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 18, weight: .medium)
+        label.font = .systemFont(ofSize: 19, weight: .medium)
         label.textColor = .black
-        label.isEnabled = false
+        label.isEnabled = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -42,6 +40,6 @@ class MealTypeCollectionViewCell: UICollectionViewCell {
     }
     
     func configureCell(mealType: String) {
-        label.text = mealType
+        label.text = mealType.capitalized
     }
 }

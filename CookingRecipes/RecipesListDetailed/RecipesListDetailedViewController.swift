@@ -25,13 +25,23 @@ class RecipesListDetailedViewController: UIViewController {
         
     }
     
+    enum SectionTitle {
+        static let DishTypes: String = "Meal Types"
+        static let Ingridients: String = "Ingridients"
+        static let DiffirentFields: String = "Additional Info"
+        static let PairingText: String = "Instructions"
+        static let PairingMatch: String = "Match"
+    }
+    
     enum Constants {
-        static let numberOfRows: Int = 7
+        static let HeaderSection: CGFloat = 40
+        static let numberOfSections: Int = 7
+        static let numberOfRows: Int = 1
         static let HeightImageView: CGFloat = 300
         static let HeightDishestype: CGFloat = 70
         static let HeightTitle: CGFloat = 60
         static let HeightIngridient: CGFloat = 280
-        static let HeightDifferentValues: CGFloat = 130
+        static let HeightDifferentValues: CGFloat = 150
         static let HeightPairingText: CGFloat = 320
         static let HeightPairingMatches: CGFloat = 240
         static let HeightDefault: CGFloat = 0
@@ -41,7 +51,7 @@ class RecipesListDetailedViewController: UIViewController {
     var router: ReceipeListDetaildeRouter?
     
     private lazy var tableView: UITableView = {
-        let tableView = UITableView()
+        let tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
@@ -117,18 +127,23 @@ extension RecipesListDetailedViewController: RecipesListDetaildeDisplayLogic {
 }
 
 extension RecipesListDetailedViewController: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return Constants.numberOfSections
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return  Constants.numberOfRows
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: MealTypesTableViewCell.self)) as? MealTypesTableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self))  else { return UITableViewCell() }
         cell.textLabel?.text = ""
         
         
         guard let receipt = summaryRecipes else { return cell }
         
-        switch indexPath.row {
+        switch indexPath.section {
         
         case Rows.ImageView:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ImageViewTableViewCell.self)) as? ImageViewTableViewCell else { return UITableViewCell() }
@@ -143,7 +158,8 @@ extension RecipesListDetailedViewController: UITableViewDataSource {
         case Rows.Title:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self)) else { return UITableViewCell()
             }
-            cell.textLabel?.text = receipt.title
+            cell.textLabel?.text = receipt.title.capitalized
+            cell.textLabel?.font = .systemFont(ofSize: 21, weight: .medium)
             cell.textLabel?.numberOfLines = 0
             return cell
         
@@ -171,11 +187,22 @@ extension RecipesListDetailedViewController: UITableViewDataSource {
         default: return UITableViewCell()
         }
     }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case Rows.DishTypes: return SectionTitle.DishTypes
+        case Rows.Ingridients: return SectionTitle.Ingridients
+        case Rows.DiffirentFields: return SectionTitle.DiffirentFields
+        case Rows.PairingText: return SectionTitle.PairingText
+        case Rows.PairingMatch: return SectionTitle.PairingMatch
+        default: return ""
+        }
+    }
 }
     
 extension RecipesListDetailedViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch indexPath.row {
+        switch indexPath.section {
         case Rows.ImageView:
             return Constants.HeightImageView
         case Rows.DishTypes:
@@ -192,5 +219,9 @@ extension RecipesListDetailedViewController: UITableViewDelegate {
             return Constants.HeightPairingMatches
         default: return Constants.HeightDefault
         }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return Constants.HeaderSection
     }
 }

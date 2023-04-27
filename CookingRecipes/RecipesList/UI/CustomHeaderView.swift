@@ -38,13 +38,12 @@ class CustomHeaderView: UIView {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = #colorLiteral(red: 0.9594197869, green: 0.9599153399, blue: 0.975127399, alpha: 1)
         collectionView.allowsSelection = true
         collectionView.isUserInteractionEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(HeaderCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: HeaderCollectionViewCell.self))
-        
         return collectionView
     }()
     

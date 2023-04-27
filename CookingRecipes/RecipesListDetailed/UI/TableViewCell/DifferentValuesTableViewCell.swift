@@ -12,8 +12,8 @@ class DifferentValuesTableViewCell: UITableViewCell {
     enum Constants {
         static let minimunLineSpacing: CGFloat = 10
         static let leftRightInsets: CGFloat = 10
-        static let topBottomInsets: CGFloat = 10
-        static let itemWidth = 180
+        static let topBottomInsets: CGFloat = 20
+        static let itemWidth = 160
         static let itemHeight = 30
         static let numberOfItems = 6
     }
