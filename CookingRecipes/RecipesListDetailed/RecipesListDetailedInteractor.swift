@@ -11,7 +11,7 @@ protocol RecipesListDetailedBuisnessLogic {
     func fetchDetails(response: RecipesDetailedModels.FetchReceipt.Request)
 }
 
-class RecipesListDetailedInteractor: RecipesListDetailedBuisnessLogic {
+final class RecipesListDetailedInteractor: RecipesListDetailedBuisnessLogic {
     
     var worker: ReceipeListDetaildWorkerLogic
     var presenter: RecipesListDetailedPresenterLogic?
@@ -26,6 +26,4 @@ class RecipesListDetailedInteractor: RecipesListDetailedBuisnessLogic {
             self.presenter?.presentFetchResults(response: response)
         }
     }
-    
-    
 }

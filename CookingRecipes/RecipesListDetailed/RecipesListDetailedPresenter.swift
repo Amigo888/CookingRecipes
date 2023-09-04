@@ -12,7 +12,7 @@ protocol RecipesListDetailedPresenterLogic {
     
 }
 
-class RecipesListDetailedPresenter: RecipesListDetailedPresenterLogic {
+final class RecipesListDetailedPresenter: RecipesListDetailedPresenterLogic {
     
     weak var viewController: RecipesListDetaildeDisplayLogic?
     
@@ -29,7 +29,5 @@ class RecipesListDetailedPresenter: RecipesListDetailedPresenterLogic {
             viewController?.displaySummaryListFailure(viewModel: viewModel)
         }
     }
-    
-    
 }
  

@@ -11,8 +11,7 @@ protocol ReceipeListPresentationLogic {
     func presentFetchResults(response: RecipesModels.FetchReceipt.Response)
 }
 
-class ReceipeListPresenter: ReceipeListPresentationLogic {
-    
+final class ReceipeListPresenter: ReceipeListPresentationLogic {
     
     weak var viewController: RecipesListDisplayLogic?
     

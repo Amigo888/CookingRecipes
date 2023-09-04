@@ -7,9 +7,9 @@
 
 import UIKit
 
-class PairingMatchCollectionViewCell: UICollectionViewCell {
+final class PairingMatchCollectionViewCell: UICollectionViewCell {
     
-    enum Constants {
+    private enum Constants {
         static let basicConstraint: CGFloat = 8
     }
     
@@ -23,7 +23,7 @@ class PairingMatchCollectionViewCell: UICollectionViewCell {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.numberOfLines = 0
+        label.numberOfLines = .zero
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -44,25 +44,28 @@ class PairingMatchCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupConstraints() {
-        NSLayoutConstraint.activate([
-            ingridientImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            ingridientImageView.bottomAnchor.constraint(equalTo: titleLabel.topAnchor, constant: -Constants.basicConstraint),
-            ingridientImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            ingridientImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constants.basicConstraint),
-        ])
+        NSLayoutConstraint.activate(
+            [
+                ingridientImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+                ingridientImageView.bottomAnchor.constraint(equalTo: titleLabel.topAnchor, constant: -Constants.basicConstraint),
+                ingridientImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+                ingridientImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+                
+                titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+                titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+                titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constants.basicConstraint),
+            ]
+        )
     }
     
     func configure(pairingMatches: PairingMatches) {
-        guard let image = pairingMatches.imageUrl else { return }
-        guard let url = URL(string: image) else { return }
+        guard let image = pairingMatches.imageUrl else {
+            return
+        }
+        guard let url = URL(string: image) else {
+            return
+        }
         ingridientImageView.sd_setImage(with: url)
-        
         titleLabel.text = pairingMatches.title
     }
-    
-    
 }

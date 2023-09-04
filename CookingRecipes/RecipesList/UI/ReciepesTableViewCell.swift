@@ -8,9 +8,9 @@
 import UIKit
 import SDWebImage
 
-class ReciepesTableViewCell: UITableViewCell {
+final class ReciepesTableViewCell: UITableViewCell {
     
-    enum Constants {
+    private enum Constants {
         static let imageViewHeight: CGFloat = 100
         static let imageViewWidth: CGFloat = 120
         static let basicConstraint: CGFloat = 16
@@ -57,8 +57,6 @@ class ReciepesTableViewCell: UITableViewCell {
         
         contentView.addSubview(receiptImageView)
         contentView.addSubview(receiptLabel)
-        
-        
     }
     
     func configureReceiptCell(receipt: Receipt) {
@@ -68,20 +66,18 @@ class ReciepesTableViewCell: UITableViewCell {
     }
     
     private func setConstraints() {
-        
-        NSLayoutConstraint.activate([
-            receiptImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constants.basicConstraint),
-            receiptImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.basicConstraint),
-            receiptImageView.heightAnchor.constraint(equalToConstant: Constants.imageViewHeight),
-            receiptImageView.widthAnchor.constraint(equalToConstant: Constants.imageViewWidth),
-            
-            receiptLabel.centerYAnchor.constraint(equalTo: receiptImageView.centerYAnchor),
-            receiptLabel.leadingAnchor.constraint(equalTo: receiptImageView.trailingAnchor, constant: Constants.basicConstraint),
-            contentView.trailingAnchor.constraint(equalTo: receiptLabel.trailingAnchor, constant: Constants.basicConstraint),
-            receiptLabel.heightAnchor.constraint(equalToConstant: 100)
-            
-            
-        ])
+        NSLayoutConstraint.activate(
+            [
+                receiptImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constants.basicConstraint),
+                receiptImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.basicConstraint),
+                receiptImageView.heightAnchor.constraint(equalToConstant: Constants.imageViewHeight),
+                receiptImageView.widthAnchor.constraint(equalToConstant: Constants.imageViewWidth),
+                
+                receiptLabel.centerYAnchor.constraint(equalTo: receiptImageView.centerYAnchor),
+                receiptLabel.leadingAnchor.constraint(equalTo: receiptImageView.trailingAnchor, constant: Constants.basicConstraint),
+                contentView.trailingAnchor.constraint(equalTo: receiptLabel.trailingAnchor, constant: Constants.basicConstraint),
+                receiptLabel.heightAnchor.constraint(equalToConstant: 100)
+            ]
+        )
     }
-    
 }

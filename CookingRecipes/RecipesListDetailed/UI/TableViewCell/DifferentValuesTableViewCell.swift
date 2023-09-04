@@ -7,9 +7,9 @@
 
 import UIKit
 
-class DifferentValuesTableViewCell: UITableViewCell {
+final class DifferentValuesTableViewCell: UITableViewCell {
     
-    enum Constants {
+    private enum Constants {
         static let minimunLineSpacing: CGFloat = 10
         static let leftRightInsets: CGFloat = 10
         static let topBottomInsets: CGFloat = 20
@@ -18,7 +18,7 @@ class DifferentValuesTableViewCell: UITableViewCell {
         static let numberOfItems = 6
     }
     
-    enum Rows {
+    private enum Rows {
         static let Servings: Int = 0
         static let ReadyMinutes: Int = 1
         static let HealthScore: Int = 2
@@ -30,26 +30,32 @@ class DifferentValuesTableViewCell: UITableViewCell {
     private lazy var collectionViewFlowLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.estimatedItemSize = .zero
-        layout.itemSize = CGSize(width: Constants.itemWidth, height: Constants.itemHeight)
+        layout.itemSize = CGSize(
+            width: Constants.itemWidth,
+            height: Constants.itemHeight
+        )
         layout.minimumLineSpacing = Constants.minimunLineSpacing
-        layout.sectionInset = UIEdgeInsets(top: Constants.topBottomInsets,
-                                           left: Constants.leftRightInsets,
-                                           bottom: Constants.topBottomInsets,
-                                           right: Constants.leftRightInsets)
+        layout.sectionInset = UIEdgeInsets(
+            top: Constants.topBottomInsets,
+            left: Constants.leftRightInsets,
+            bottom: Constants.topBottomInsets,
+            right: Constants.leftRightInsets
+        )
         return layout
     }()
     
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
         collectionView.dataSource = self
-        collectionView.delegate = self
         collectionView.backgroundColor = .white
         collectionView.allowsSelection = true
         collectionView.isUserInteractionEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.register(DifferentCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: DifferentCollectionViewCell.self))
-        
+        collectionView.register(
+            DifferentCollectionViewCell.self,
+            forCellWithReuseIdentifier: String(describing: DifferentCollectionViewCell.self)
+        )
         return collectionView
     }()
     
@@ -101,13 +107,20 @@ extension DifferentValuesTableViewCell: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: DifferentCollectionViewCell.self), for: indexPath) as? DifferentCollectionViewCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: String(describing: DifferentCollectionViewCell.self),
+            for: indexPath
+        ) as? DifferentCollectionViewCell else {
+            return UICollectionViewCell()
+        }
         switch indexPath.row {
         case Rows.Servings:
             let serving = "Servings: \(servings)"
             cell.configure(info: serving)
         case Rows.ReadyMinutes:
-            guard let minutes = Int(readyInMinutes) else { return UICollectionViewCell() }
+            guard let minutes = Int(readyInMinutes) else {
+                return UICollectionViewCell()
+            }
             let minute = minutes <= 60 ? "Time : \(minutes) min" : "Time: \(minutes / 60) h \(minutes % 60) min"
             cell.configure(info: minute)
         case Rows.HealthScore:
@@ -126,10 +139,5 @@ extension DifferentValuesTableViewCell: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         return cell
-        
     }
-}
-
-extension DifferentValuesTableViewCell: UICollectionViewDelegate {
-    
 }

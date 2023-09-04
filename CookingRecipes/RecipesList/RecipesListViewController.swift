@@ -8,18 +8,25 @@
 import UIKit
 
 protocol RecipesListDisplayLogic: AnyObject {
+    
     func displayRecipesList(viewModel: RecipesModels.FetchReceipt.ViewModel)
     func displayRecipesListFailure(viewModel: RecipesModels.FetchReceipt.ViewModelFailure)
     func startLoadingState(viewModel: RecipesModels.FetchReceipt.ViewModelLoading)
 }
 
-class RecipesListViewController: UIViewController {
+final class RecipesListViewController: UIViewController {
     
-    enum Constants {
-        static let rowHeight: CGFloat = 130
-        static let headerXY: CGFloat = 0
-        static let headerHeight: CGFloat = 50
-        static let numberOfRows: Int = 1
+    private enum Constants {
+        enum Layout {
+            static let rowHeight: CGFloat = 130
+            static let headerXY: CGFloat = 0
+            static let headerHeight: CGFloat = 50
+            static let numberOfRows: Int = 1
+            static let heightForHeaderInSection: CGFloat = 10.0
+        }
+        enum Text {
+            static let title = "RECEIPES"
+        }
     }
     
     var interactor: ReceipeListBuisnessLogic?
@@ -30,14 +37,21 @@ class RecipesListViewController: UIViewController {
         let tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.dataSource = self
         tableView.delegate = self
-        headerView = CustomHeaderView(frame: CGRect(x: Constants.headerXY,
-                                                    y: Constants.headerXY,
-                                                    width: view.bounds.width,
-                                                    height: Constants.headerHeight),
-                                      mealTypes: APIConstants.mealTypes)
+        headerView = CustomHeaderView(
+            frame: CGRect(
+                x: Constants.Layout.headerXY,
+                y: Constants.Layout.headerXY,
+                width: view.bounds.width,
+                height: Constants.Layout.headerHeight
+            ),
+            mealTypes: APIConstants.mealTypes
+        )
         headerView?.delegate = self
         tableView.tableHeaderView = headerView
-        tableView.register(ReciepesTableViewCell.self, forCellReuseIdentifier: String(describing: ReciepesTableViewCell.self))
+        tableView.register(
+            ReciepesTableViewCell.self,
+            forCellReuseIdentifier: String(describing: ReciepesTableViewCell.self)
+        )
         return tableView
     }()
     
@@ -63,7 +77,7 @@ class RecipesListViewController: UIViewController {
     }
     
     private func setupUI() {
-        title = "RECEIPES"
+        title = Constants.Text.title
         view.addSubview(tableView)
         view.addSubview(activityIndicator)
         activityIndicator.startAnimating()
@@ -83,16 +97,17 @@ class RecipesListViewController: UIViewController {
     }
     
     private func setupConstraints() {
-        NSLayoutConstraint.activate([
-            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-        ])
+        NSLayoutConstraint.activate(
+            [
+                activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            ]
+        )
     }
     
     private func fetchRecipesList() {
         interactor?.fetchFoods(request: .init(typeOfMeal: "main course"))
     }
-    
 }
 
 extension RecipesListViewController: RecipesListDisplayLogic {
@@ -130,11 +145,16 @@ extension RecipesListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Constants.numberOfRows
+        return Constants.Layout.numberOfRows
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ReciepesTableViewCell.self), for: indexPath) as? ReciepesTableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: String(describing: ReciepesTableViewCell.self),
+            for: indexPath
+        ) as? ReciepesTableViewCell else {
+            return UITableViewCell()
+        }
         let receipt = receipts[indexPath.section]
         cell.backgroundColor = .white
         cell.configureReceiptCell(receipt: receipt)
@@ -144,11 +164,11 @@ extension RecipesListViewController: UITableViewDataSource {
 
 extension RecipesListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        Constants.rowHeight
+        Constants.Layout.rowHeight
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 10.0
+        return Constants.Layout.heightForHeaderInSection
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

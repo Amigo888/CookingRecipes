@@ -7,6 +7,6 @@
 
 import Foundation
 
-class ReceipeListDetaildeRouter {
+final class ReceipeListDetaildeRouter {
     
 }

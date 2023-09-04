@@ -7,41 +7,47 @@
 
 import UIKit
 
-class PairingMatchTableViewCell: UITableViewCell {
+final class PairingMatchTableViewCell: UITableViewCell {
     
-    enum Constants {
+    private enum Constants {
         static let minimunLineSpacing: CGFloat = 10
         static let leftRightInsets: CGFloat = 10
         static let topBottomInsets: CGFloat = 10
-        static let itemWidth = 160
-        static let itemHeight = 220
+        static let itemWidth: CGFloat = 160
+        static let itemHeight: CGFloat = 220
     }
     
     private lazy var collectionViewFlowLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.estimatedItemSize = .zero
-        layout.itemSize = CGSize(width: Constants.itemWidth, height: Constants.itemHeight)
+        layout.itemSize = CGSize(
+            width: Constants.itemWidth,
+            height: Constants.itemHeight
+        )
         layout.minimumLineSpacing = Constants.minimunLineSpacing
-        layout.sectionInset = UIEdgeInsets(top: Constants.topBottomInsets,
-                                           left: Constants.leftRightInsets,
-                                           bottom: Constants.topBottomInsets,
-                                           right: Constants.leftRightInsets)
+        layout.sectionInset = UIEdgeInsets(
+            top: Constants.topBottomInsets,
+            left: Constants.leftRightInsets,
+            bottom: Constants.topBottomInsets,
+            right: Constants.leftRightInsets
+        )
         return layout
     }()
     
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
         collectionView.dataSource = self
-        collectionView.delegate = self
         collectionView.backgroundColor = .white
         collectionView.layer.cornerRadius = 10
         collectionView.allowsSelection = true
         collectionView.isUserInteractionEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.register(PairingMatchCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: PairingMatchCollectionViewCell.self))
-        
+        collectionView.register(
+            PairingMatchCollectionViewCell.self,
+            forCellWithReuseIdentifier: String(describing: PairingMatchCollectionViewCell.self)
+        )
         return collectionView
     }()
     
@@ -62,11 +68,14 @@ class PairingMatchTableViewCell: UITableViewCell {
     }
     
     private func setupConstraints() {
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)])
+        NSLayoutConstraint.activate(
+            [
+                collectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
+                collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+                collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+                collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+            ]
+        )
     }
     
     func configure(receipeDetailed: DetailedRecipe) {
@@ -82,11 +91,8 @@ extension PairingMatchTableViewCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: PairingMatchCollectionViewCell.self), for: indexPath) as? PairingMatchCollectionViewCell else { return UICollectionViewCell() }
-            cell.configure(pairingMatches: pairingMatches[indexPath.row])
+        cell.configure(pairingMatches: pairingMatches[indexPath.row])
         return cell
     }
-}
-
-extension PairingMatchTableViewCell: UICollectionViewDelegate {
 }
 

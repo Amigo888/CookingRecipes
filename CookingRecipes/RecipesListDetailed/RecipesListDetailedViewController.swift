@@ -7,14 +7,15 @@
 
 import UIKit
 import SDWebImage
+
 protocol RecipesListDetaildeDisplayLogic: AnyObject {
     func displaySummaryList(viewModel: RecipesDetailedModels.FetchReceipt.ViewModel)
     func displaySummaryListFailure(viewModel: RecipesDetailedModels.FetchReceipt.ViewModelFailure)
 }
 
-class RecipesListDetailedViewController: UIViewController {
+final class RecipesListDetailedViewController: UIViewController {
     
-    enum Rows {
+    private enum Rows {
         static let ImageView: Int = 0
         static let DishTypes: Int = 1
         static let Title: Int = 2
@@ -25,7 +26,7 @@ class RecipesListDetailedViewController: UIViewController {
         
     }
     
-    enum SectionTitle {
+    private enum SectionTitle {
         static let DishTypes: String = "Meal Types"
         static let Ingridients: String = "Ingridients"
         static let DiffirentFields: String = "Additional Info"
@@ -33,7 +34,7 @@ class RecipesListDetailedViewController: UIViewController {
         static let PairingMatch: String = "Match"
     }
     
-    enum Constants {
+    private enum Constants {
         static let HeaderSection: CGFloat = 40
         static let numberOfSections: Int = 7
         static let numberOfRows: Int = 1
@@ -55,18 +56,39 @@ class RecipesListDetailedViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
-        tableView.register(ImageViewTableViewCell.self, forCellReuseIdentifier: String(describing: ImageViewTableViewCell.self))
-        tableView.register(MealTypesTableViewCell.self, forCellReuseIdentifier: String(describing: MealTypesTableViewCell.self))
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: String(describing: UITableViewCell.self))
-        tableView.register(IngridientsTableViewCell.self, forCellReuseIdentifier: String(describing: IngridientsTableViewCell.self))
-        tableView.register(DifferentValuesTableViewCell.self, forCellReuseIdentifier: String(describing: DifferentValuesTableViewCell.self))
-        tableView.register(PairingTextTableViewCell.self, forCellReuseIdentifier: String(describing: PairingTextTableViewCell.self))
-        tableView.register(PairingMatchTableViewCell.self, forCellReuseIdentifier: String(describing: PairingMatchTableViewCell.self))
+        tableView.register(
+            ImageViewTableViewCell.self,
+            forCellReuseIdentifier: String(describing: ImageViewTableViewCell.self)
+        )
+        tableView.register(
+            MealTypesTableViewCell.self,
+            forCellReuseIdentifier: String(describing: MealTypesTableViewCell.self)
+        )
+        tableView.register(
+            UITableViewCell.self,
+            forCellReuseIdentifier: String(describing: UITableViewCell.self)
+        )
+        tableView.register(
+            IngridientsTableViewCell.self,
+            forCellReuseIdentifier: String(describing: IngridientsTableViewCell.self)
+        )
+        tableView.register(
+            DifferentValuesTableViewCell.self,
+            forCellReuseIdentifier: String(describing: DifferentValuesTableViewCell.self)
+        )
+        tableView.register(
+            PairingTextTableViewCell.self,
+            forCellReuseIdentifier: String(describing: PairingTextTableViewCell.self)
+        )
+        tableView.register(
+            PairingMatchTableViewCell.self,
+            forCellReuseIdentifier: String(describing: PairingMatchTableViewCell.self)
+        )
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
     
-    public var id: Int = 0
+    public var id: Int = .zero
     
     private var summaryRecipes: DetailedRecipe?
     
@@ -97,12 +119,14 @@ class RecipesListDetailedViewController: UIViewController {
     }
     
     func setupConstraints() {
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        NSLayoutConstraint.activate(
+            [
+                tableView.topAnchor.constraint(equalTo: view.topAnchor),
+                tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            ]
+        )
     }
     
     func fetchRecipesDetailed() {
@@ -137,53 +161,86 @@ extension RecipesListDetailedViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self))  else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: String(describing: UITableViewCell.self)
+        )  else {
+            return UITableViewCell()
+        }
         cell.textLabel?.text = ""
         
         
-        guard let receipt = summaryRecipes else { return cell }
+        guard let receipt = summaryRecipes else {
+            return cell
+        }
         
         switch indexPath.section {
-        
+            
         case Rows.ImageView:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ImageViewTableViewCell.self)) as? ImageViewTableViewCell else { return UITableViewCell() }
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: String(describing: ImageViewTableViewCell.self)
+            ) as? ImageViewTableViewCell else {
+                return UITableViewCell()
+            }
             cell.configureReceiptCell(receiptDetailed: receipt)
             return cell
-        
+            
         case Rows.DishTypes:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: MealTypesTableViewCell.self)) as? MealTypesTableViewCell else { return UITableViewCell() }
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: String(describing: MealTypesTableViewCell.self)
+            ) as? MealTypesTableViewCell else {
+                return UITableViewCell()
+            }
             cell.configure(receipeDetailed: receipt)
-                return cell
-        
+            return cell
+            
         case Rows.Title:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self)) else { return UITableViewCell()
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: String(describing: UITableViewCell.self)
+            ) else {
+                return UITableViewCell()
             }
             cell.textLabel?.text = receipt.title.capitalized
             cell.textLabel?.font = .systemFont(ofSize: 21, weight: .medium)
             cell.textLabel?.numberOfLines = 0
             return cell
-        
+            
         case Rows.Ingridients:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: IngridientsTableViewCell.self)) as? IngridientsTableViewCell else { return UITableViewCell() }
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: String(describing: IngridientsTableViewCell.self)
+            ) as? IngridientsTableViewCell else {
+                return UITableViewCell()
+            }
             cell.configure(receipeDetailed: receipt)
             return cell
             
         case Rows.DiffirentFields:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: DifferentValuesTableViewCell.self)) as? DifferentValuesTableViewCell else { return UITableViewCell() }
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: String(describing: DifferentValuesTableViewCell.self)
+            ) as? DifferentValuesTableViewCell else {
+                return UITableViewCell()
+            }
             cell.configure(receipeDetailed: receipt)
             cell.backgroundColor = .black
             return cell
-        
+            
         case Rows.PairingText:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PairingTextTableViewCell.self)) as? PairingTextTableViewCell else { return UITableViewCell() }
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: String(describing: PairingTextTableViewCell.self)
+            ) as? PairingTextTableViewCell else {
+                return UITableViewCell()
+            }
             cell.configure(receipeDetailed: receipt)
             return cell
-        
+            
         case Rows.PairingMatch:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PairingMatchTableViewCell.self)) as? PairingMatchTableViewCell else { return UITableViewCell() }
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: String(describing: PairingMatchTableViewCell.self)
+            ) as? PairingMatchTableViewCell else {
+                return UITableViewCell()
+            }
             cell.configure(receipeDetailed: receipt)
             return cell
-        
+            
         default: return UITableViewCell()
         }
     }
@@ -199,7 +256,7 @@ extension RecipesListDetailedViewController: UITableViewDataSource {
         }
     }
 }
-    
+
 extension RecipesListDetailedViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
