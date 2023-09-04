@@ -2,7 +2,7 @@
 //  APIConstants.swift
 //  CookingRecipes
 //
-//  Created by Дмитрий Процак on 13.04.2023.
+//  Created by Dima Protsak on 13.04.2023.
 //
 
 import Foundation
