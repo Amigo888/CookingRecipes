@@ -6,3 +6,25 @@
 //
 
 import Foundation
+
+protocol ReceipeListBuisnessLogic {
+    func fetchFoods(request: RecipesModels.FetchReceipt.Request)
+}
+
+class ReceipeListInteractor: ReceipeListBuisnessLogic {
+    
+    var presenter: ReceipeListPresentationLogic?
+    var worker: ReceipeListDoingSomethingWorkerLogic
+    
+    init(worker: ReceipeListDoingSomethingWorkerLogic) {
+        self.worker = worker
+    }
+
+    func fetchFoods(request: RecipesModels.FetchReceipt.Request) {
+        worker.fetchReceipt(type: request.typeOfMeal, completion: { receipes in
+            let response = RecipesModels.FetchReceipt.Response(receipe: receipes)
+            self.presenter?.presentFetchResults(response: response)
+        })
+    }
+}
+

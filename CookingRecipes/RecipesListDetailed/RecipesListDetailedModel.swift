@@ -1,33 +1,30 @@
 //
-//  RecipesListModel.swift
+//  RecipesListDetailedModel.swift
 //  CookingRecipes
 //
-//  Created by Дмитрий Процак on 11.04.2023.
+//  Created by Дмитрий Процак on 17.04.2023.
 //
 
 import Foundation
 
-enum RecipesModels {
+enum RecipesDetailedModels {
     
     enum FetchReceipt {
         
         struct Request {
-            let typeOfMeal: String
+            let id: Int
         }
         
         struct Response {
-            let receipe: Result<[Receipt], Error>
+            let receipeDetail: Result<DetailedRecipe, Error>
         }
         
         struct ViewModel {
-            let recipe: [Receipt]
+            let recipeDetail: DetailedRecipe
         }
         
         struct ViewModelFailure {
             let errorMessage: String
-        }
-        struct ViewModelLoading {
-            var isLoading: Bool
         }
     }
 }
