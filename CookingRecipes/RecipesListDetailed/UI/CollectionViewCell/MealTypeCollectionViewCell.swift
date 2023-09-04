@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MealTypeCollectionViewCell: UICollectionViewCell {
+final class MealTypeCollectionViewCell: UICollectionViewCell {
     
     private lazy var label : UILabel = {
         let label = UILabel()

@@ -11,7 +11,7 @@ protocol ReceipeListDetaildWorkerLogic {
     func fetchReceiptDetails(id: Int, completion: @escaping (Result<DetailedRecipe, Error>) -> Void)
 }
 
-class RecipesListDetailedWorker: ReceipeListDetaildWorkerLogic {
+final class RecipesListDetailedWorker: ReceipeListDetaildWorkerLogic {
     
     let apiCaller: APICallerProtocol
     
@@ -20,11 +20,13 @@ class RecipesListDetailedWorker: ReceipeListDetaildWorkerLogic {
     }
     
     func fetchReceiptDetails(id: Int, completion: @escaping (Result<DetailedRecipe, Error>) -> Void) {
-        let url = URLBuilder.buildURL(baseURL: APIConstants.URLDetail.baseURL,
-                                      pathComponents: ["recipes",
-                                                       "\(id)",
-                                                       "information"],
-                                      queryParameters: APIConstants.URLDetail.QueryParametersDetailed)
+        let url = URLBuilder.buildURL(
+            baseURL: APIConstants.URLDetail.baseURL,
+            pathComponents: ["recipes",
+                             "\(id)",
+                             "information"],
+            queryParameters: APIConstants.URLDetail.QueryParametersDetailed
+        )
         apiCaller.makeRequest(with: url, expecting: DetailedRecipe.self) { result in
             DispatchQueue.main.async {
                 switch result {
@@ -36,6 +38,4 @@ class RecipesListDetailedWorker: ReceipeListDetaildWorkerLogic {
             }
         }
     }
-    
-    
 }

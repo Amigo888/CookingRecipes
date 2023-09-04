@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DifferentCollectionViewCell: UICollectionViewCell {
+final class DifferentCollectionViewCell: UICollectionViewCell {
     
     private lazy var label : UILabel = {
         let label = UILabel()

@@ -8,29 +8,35 @@
 import UIKit
 
 protocol CustoHeaderViewDelegate {
+    
     func didSelectItem(_ title: String)
 }
 
-class CustomHeaderView: UIView {
+final class CustomHeaderView: UIView {
     
-    enum Constants {
+    private enum Constants {
         static let minimunLineSpacing: CGFloat = 10
         static let leftRightInsets: CGFloat = 10
         static let topBottomInsets: CGFloat = 0
-        static let itemWidth = 120
-        static let itemHeight = 30
+        static let itemWidth: CGFloat = 120
+        static let itemHeight: CGFloat = 30
     }
     
     private lazy var collectionViewFlowLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.estimatedItemSize = .zero
         layout.scrollDirection = .horizontal
-        layout.itemSize = CGSize(width: Constants.itemWidth, height: Constants.itemHeight)
+        layout.itemSize = CGSize(
+            width: Constants.itemWidth,
+            height: Constants.itemHeight
+        )
         layout.minimumLineSpacing = Constants.minimunLineSpacing
-        layout.sectionInset = UIEdgeInsets(top: Constants.topBottomInsets,
-                                           left: Constants.leftRightInsets,
-                                           bottom: Constants.topBottomInsets,
-                                           right: Constants.leftRightInsets)
+        layout.sectionInset = UIEdgeInsets(
+            top: Constants.topBottomInsets,
+            left: Constants.leftRightInsets,
+            bottom: Constants.topBottomInsets,
+            right: Constants.leftRightInsets
+        )
         return layout
     }()
     
@@ -43,11 +49,14 @@ class CustomHeaderView: UIView {
         collectionView.isUserInteractionEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.register(HeaderCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: HeaderCollectionViewCell.self))
+        collectionView.register(
+            HeaderCollectionViewCell.self,
+            forCellWithReuseIdentifier: String(describing: HeaderCollectionViewCell.self)
+        )
         return collectionView
     }()
     
-    private var mealTypes: [String] = [String]()
+    private var mealTypes = [String]()
     
     var delegate: CustoHeaderViewDelegate?
     
@@ -67,11 +76,14 @@ class CustomHeaderView: UIView {
     }
     
     private func setupConstraints() {
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: self.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor)])
+        NSLayoutConstraint.activate(
+            [
+                collectionView.topAnchor.constraint(equalTo: self.topAnchor),
+                collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+                collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+                collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+            ]
+        )
         
     }
 }
@@ -82,7 +94,12 @@ extension CustomHeaderView: UICollectionViewDataSource {
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: HeaderCollectionViewCell.self), for: indexPath) as? HeaderCollectionViewCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: String(describing: HeaderCollectionViewCell.self),
+            for: indexPath
+        ) as? HeaderCollectionViewCell else {
+            return UICollectionViewCell()
+        }
         let mealType = mealTypes[indexPath.row].capitalized
         cell.configureCell(mealType: mealType)
         return cell
@@ -90,6 +107,7 @@ extension CustomHeaderView: UICollectionViewDataSource {
     
     
 }
+
 extension CustomHeaderView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = mealTypes[indexPath.row]

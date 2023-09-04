@@ -16,7 +16,7 @@ protocol APICallerProtocol {
     func makeRequest<T: Decodable>(with url: URL?, expecting: T.Type ,completion: @escaping(Result<T, Error>) -> Void)
 }
 
-class APICaller: APICallerProtocol {
+final class APICaller: APICallerProtocol {
     
     func makeRequest<T: Decodable>(with url: URL?, expecting: T.Type ,completion: @escaping(Result<T, Error>) -> Void) {
         guard let url = url else { return completion(.failure(CustomError.invalidURL)) }

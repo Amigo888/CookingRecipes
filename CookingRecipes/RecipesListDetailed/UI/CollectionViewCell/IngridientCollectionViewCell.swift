@@ -8,9 +8,9 @@
 import UIKit
 import SDWebImage
 
-class IngridientCollectionViewCell: UICollectionViewCell {
+final class IngridientCollectionViewCell: UICollectionViewCell {
     
-    enum Constants {
+    private enum Constants {
         static let basicConstraint: CGFloat = 8
     }
     
@@ -32,7 +32,7 @@ class IngridientCollectionViewCell: UICollectionViewCell {
     private lazy var measureLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.numberOfLines = 0
+        label.numberOfLines = .zero
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -54,36 +54,46 @@ class IngridientCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupConstraints() {
-        NSLayoutConstraint.activate([
-            ingridientImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            ingridientImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            ingridientImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            ingridientImageView.bottomAnchor.constraint(equalTo: titleLabel.topAnchor, constant: -Constants.basicConstraint), 
-            
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            titleLabel.bottomAnchor.constraint(equalTo: measureLabel.topAnchor, constant: -Constants.basicConstraint),
-            
-            measureLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            measureLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            measureLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            
-            
-        ])
+        NSLayoutConstraint.activate(
+            [
+                ingridientImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+                ingridientImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+                ingridientImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+                ingridientImageView.bottomAnchor.constraint(equalTo: titleLabel.topAnchor, constant: -Constants.basicConstraint),
+                
+                titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+                titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+                titleLabel.bottomAnchor.constraint(equalTo: measureLabel.topAnchor, constant: -Constants.basicConstraint),
+                
+                measureLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+                measureLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+                measureLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            ]
+        )
     }
     
     func configure(ingridient: Ingredient) {
-        guard let image = ingridient.image else { return }
-        let url = URLBuilder.buildURL(baseURL: APIConstants.URLDetail.baseURLPhoto,
-                                      pathComponents: [APIConstants.URLDetail.pathComponentsPhoto, image],
-                                      queryParameters: APIConstants.URLDetail.emptyQueryParameters)
-        guard let url = url else { return }
+        guard let image = ingridient.image else {
+            return
+        }
+        let url = URLBuilder.buildURL(
+            baseURL: APIConstants.URLDetail.baseURLPhoto,
+            pathComponents: [APIConstants.URLDetail.pathComponentsPhoto, image],
+            queryParameters: APIConstants.URLDetail.emptyQueryParameters
+        )
+        guard let url = url else {
+            return
+        }
         ingridientImageView.sd_setImage(with: url)
         
         titleLabel.text = ingridient.name.capitalized
         
-        guard let amount = ingridient.measures?.metric.amount else { return }
-        guard let unit = ingridient.measures?.metric.unitLong else { return }
+        guard let amount = ingridient.measures?.metric.amount else {
+            return
+        }
+        guard let unit = ingridient.measures?.metric.unitLong else {
+            return
+        }
         let measureText = "\(String(Int(amount))) \(String(unit))"
         measureLabel.text = measureText
     }

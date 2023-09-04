@@ -15,7 +15,7 @@ protocol ReceipeListDataPassing {
     var dataStoreId: Int? { get set }
 }
 
-class ReceipeListRouter: ReceipeListRouterLogic, ReceipeListDataPassing {
+final class ReceipeListRouter: ReceipeListRouterLogic, ReceipeListDataPassing {
     
     var dataStoreId: Int?
     weak var viewController: RecipesListViewController?
@@ -23,7 +23,7 @@ class ReceipeListRouter: ReceipeListRouterLogic, ReceipeListDataPassing {
     func navigateToNextScreen() {
         guard let currnetVc = viewController else { return }
         let nextVC = RecipesListDetailedViewController()
-        nextVC.id = dataStoreId ?? 0
+        nextVC.id = dataStoreId ?? .zero
         currnetVc.navigationController?.pushViewController(nextVC, animated: true)
     }
 }

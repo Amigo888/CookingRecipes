@@ -7,45 +7,52 @@
 
 import UIKit
 
-class MealTypesTableViewCell: UITableViewCell {
+final class MealTypesTableViewCell: UITableViewCell {
     
-    enum Constants {
+    private enum Constants {
         static let minimunLineSpacing: CGFloat = 10
         static let leftRightInsets: CGFloat = 10
         static let topBottomInsets: CGFloat = 10
-        static let itemWidth = 120
-        static let itemHeight = 30
+        static let itemWidth: CGFloat = 120
+        static let itemHeight: CGFloat = 30
     }
     
     private lazy var collectionViewFlowLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.estimatedItemSize = .zero
         layout.scrollDirection = .horizontal
-        layout.itemSize = CGSize(width: Constants.itemWidth, height: Constants.itemHeight)
+        layout.itemSize = CGSize(
+            width: Constants.itemWidth,
+            height: Constants.itemHeight
+        )
         layout.minimumLineSpacing = Constants.minimunLineSpacing
-        layout.sectionInset = UIEdgeInsets(top: Constants.topBottomInsets,
-                                           left: Constants.leftRightInsets,
-                                           bottom: Constants.topBottomInsets,
-                                           right: Constants.leftRightInsets)
+        layout.sectionInset = UIEdgeInsets(
+            top: Constants.topBottomInsets,
+            left: Constants.leftRightInsets,
+            bottom: Constants.topBottomInsets,
+            right: Constants.leftRightInsets
+        )
         return layout
     }()
     
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
         collectionView.dataSource = self
-        collectionView.delegate = self
         collectionView.backgroundColor = .white
         collectionView.allowsSelection = true
         collectionView.isUserInteractionEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.register(MealTypeCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: MealTypeCollectionViewCell.self))
+        collectionView.register(
+            MealTypeCollectionViewCell.self,
+            forCellWithReuseIdentifier: String(describing: MealTypeCollectionViewCell.self)
+        )
         
         return collectionView
     }()
     
     private var mealTypes = [String]()
-
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
@@ -61,11 +68,14 @@ class MealTypesTableViewCell: UITableViewCell {
     }
     
     private func setupConstraints() {
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: self.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor)])
+        NSLayoutConstraint.activate(
+            [
+                collectionView.topAnchor.constraint(equalTo: self.topAnchor),
+                collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+                collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+                collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+            ]
+        )
         
     }
     
@@ -83,13 +93,14 @@ extension MealTypesTableViewCell: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: MealTypeCollectionViewCell.self), for: indexPath) as? MealTypeCollectionViewCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: String(describing: MealTypeCollectionViewCell.self),
+            for: indexPath
+        ) as? MealTypeCollectionViewCell else {
+            return UICollectionViewCell()
+        }
         let mealType = mealTypes[indexPath.row]
         cell.configureCell(mealType: mealType)
         return cell
     }
-}
-
-extension MealTypesTableViewCell: UICollectionViewDelegate {
-    
 }

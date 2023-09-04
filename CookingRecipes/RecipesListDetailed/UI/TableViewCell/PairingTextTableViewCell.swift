@@ -7,9 +7,9 @@
 
 import UIKit
 
-class PairingTextTableViewCell: UITableViewCell {
+final class PairingTextTableViewCell: UITableViewCell {
     
-    enum Constants {
+    private enum Constants {
         static let topBottomConstraint: CGFloat = 16
         static let leftRightBottomConstraint: CGFloat = 16
     }
@@ -24,7 +24,7 @@ class PairingTextTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupView()
@@ -40,17 +40,18 @@ class PairingTextTableViewCell: UITableViewCell {
     }
     
     private func setupConstraints() {
-        NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constants.topBottomConstraint),
-            label.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constants.topBottomConstraint),
-            label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leftRightBottomConstraint),
-            label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.leftRightBottomConstraint)
-        ])
+        NSLayoutConstraint.activate(
+            [
+                label.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constants.topBottomConstraint),
+                label.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constants.topBottomConstraint),
+                label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leftRightBottomConstraint),
+                label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.leftRightBottomConstraint)
+            ]
+        )
     }
     
     func configure(receipeDetailed: DetailedRecipe) {
         let text = receipeDetailed.winePairing?.pairingText.isEmpty ?? false ? "Enjoy you food" : receipeDetailed.winePairing?.pairingText
         label.text = text
     }
-    
 }

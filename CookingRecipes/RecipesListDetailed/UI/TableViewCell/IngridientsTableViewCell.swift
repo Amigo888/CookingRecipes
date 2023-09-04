@@ -7,33 +7,37 @@
 
 import UIKit
 
-class IngridientsTableViewCell: UITableViewCell {
+final class IngridientsTableViewCell: UITableViewCell {
     
-    enum Constants {
+    private enum Constants {
         static let minimunLineSpacing: CGFloat = 10
         static let leftRightInsets: CGFloat = 10
         static let topBottomInsets: CGFloat = 10
-        static let itemWidth = 160
-        static let itemHeight = 260
+        static let itemWidth: CGFloat = 160
+        static let itemHeight: CGFloat = 260
     }
     
     private lazy var collectionViewFlowLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.estimatedItemSize = .zero
-        layout.itemSize = CGSize(width: Constants.itemWidth, height: Constants.itemHeight)
+        layout.itemSize = CGSize(
+            width: Constants.itemWidth,
+            height: Constants.itemHeight
+        )
         layout.minimumLineSpacing = Constants.minimunLineSpacing
-        layout.sectionInset = UIEdgeInsets(top: Constants.topBottomInsets,
-                                           left: Constants.leftRightInsets,
-                                           bottom: Constants.topBottomInsets,
-                                           right: Constants.leftRightInsets)
+        layout.sectionInset = UIEdgeInsets(
+            top: Constants.topBottomInsets,
+            left: Constants.leftRightInsets,
+            bottom: Constants.topBottomInsets,
+            right: Constants.leftRightInsets
+        )
         return layout
     }()
     
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
         collectionView.dataSource = self
-        collectionView.delegate = self
         collectionView.backgroundColor = .white
         collectionView.layer.cornerRadius = 10
         collectionView.allowsSelection = true
@@ -80,13 +84,14 @@ extension IngridientsTableViewCell: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: IngridientCollectionViewCell.self), for: indexPath) as? IngridientCollectionViewCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: String(describing: IngridientCollectionViewCell.self),
+            for: indexPath
+        ) as? IngridientCollectionViewCell else {
+            return UICollectionViewCell()
+        }
         let ingridient = ingridients[indexPath.row]
         cell.configure(ingridient: ingridient)
         return cell
     }
-}
-
-extension IngridientsTableViewCell: UICollectionViewDelegate {
-    
 }
